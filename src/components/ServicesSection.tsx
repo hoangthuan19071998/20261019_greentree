@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+﻿import type { FC } from 'react'
+import { useState } from 'react'
 import { Sparkles, BarChart3, Globe, Compass, Film } from 'lucide-react'
 
-export const ServicesSection: React.FC = () => {
+export const ServicesSection: FC = () => {
   const [activeCard, setActiveCard] = useState<number>(0)
 
   const services = [
@@ -10,7 +11,7 @@ export const ServicesSection: React.FC = () => {
       total: '05',
       badge: 'CORE',
       title: 'Performance Ads',
-      desc: 'Meta, Google and TikTok campaigns built around your margins — not vanity metrics. Planned, tested and optimised weekly.',
+      desc: 'Meta, Google and TikTok campaigns built around your margins â€” not vanity metrics. Planned, tested and optimised weekly.',
       tags: ['Meta Ads', 'Google Ads', 'TikTok Ads'],
       icon: BarChart3,
       accent: 'from-emerald-500/20 to-teal-500/5',
@@ -21,7 +22,7 @@ export const ServicesSection: React.FC = () => {
       total: '05',
       badge: 'FOUNDATION',
       title: 'Brand & Strategy',
-      desc: 'Positioning, audience insight and a clear message — the roots every channel grows from.',
+      desc: 'Positioning, audience insight and a clear message â€” the roots every channel grows from.',
       tags: ['Positioning', 'Audience research', 'Messaging'],
       icon: Compass,
       accent: 'from-lime-500/20 to-emerald-500/5',
@@ -71,7 +72,7 @@ export const ServicesSection: React.FC = () => {
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
         <div>
           <span className="text-xs tracking-[0.25em] font-sans font-semibold text-[#8FA98F] uppercase block mb-3">
-            02 — SERVICES
+            02 â€” SERVICES
           </span>
           <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl text-[#F5F4EE] font-normal">
             What we <span className="italic text-[#A7C7AC]">grow</span>
@@ -83,7 +84,7 @@ export const ServicesSection: React.FC = () => {
 
         <div className="hidden sm:flex items-center gap-2 text-xs font-mono text-[#8FA98F]">
           <span>KEEP SCROLLING</span>
-          <span className="text-sm">→</span>
+          <span className="text-sm">â†’</span>
         </div>
       </div>
 
@@ -164,3 +165,4 @@ export const ServicesSection: React.FC = () => {
     </div>
   )
 }
+

@@ -1,6 +1,7 @@
-import React from 'react'
+﻿import type { FC } from 'react'
+// import React
 
-export const TreeRingsBackground: React.FC<{ className?: string }> = ({ className = '' }) => {
+export const TreeRingsBackground: FC<{ className?: string }> = ({ className = '' }) => {
   return (
     <div className={`pointer-events-none absolute inset-0 overflow-hidden ${className}`}>
       {/* Concentric Tree Rings SVG */}
@@ -29,3 +30,4 @@ export const TreeRingsBackground: React.FC<{ className?: string }> = ({ classNam
     </div>
   )
 }
+

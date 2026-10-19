@@ -49,6 +49,15 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
         ) : (
           <>
             <div className="mb-6">
+              <span className="w-11 h-11 rounded-2xl bg-[#C9D8B0] p-1.5 inline-flex items-center justify-center mb-3 shadow-md">
+                <img
+                  src="/logo_image/gta-symbol-xanh-128.png"
+                  alt="Green Tree Agency"
+                  width={32}
+                  height={32}
+                  className="w-full h-full object-contain"
+                />
+              </span>
               <span className="text-xs font-mono tracking-widest text-[#8FA98F] uppercase block mb-1">
                 LET'S TALK
               </span>

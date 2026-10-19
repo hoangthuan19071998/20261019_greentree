@@ -1,89 +1,87 @@
-import React from 'react'
+import type { FC } from 'react'
+// import React
 
 interface NavbarProps {
-  onOpenContact: () => void
-  activeSection?: string
+  progressRef?: React.RefObject<HTMLDivElement | null>
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ onOpenContact }) => {
+export const Navbar: FC<NavbarProps> = ({ progressRef }) => {
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 backdrop-blur-md bg-[#091710]/85 border-b border-[#1A3828]/50">
-      <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+    <header className="sticky top-0 z-20 bg-[#14261E]">
+      <div
+        className="pad mx-auto flex items-center justify-between gap-6"
+        style={{
+          maxWidth: '1440px',
+          padding: '0 56px',
+          height: '80px',
+        }}
+      >
         {/* Brand / Logo */}
-        <a href="#top" className="flex items-center gap-3 group">
-          <div className="w-10 h-10 rounded-full border border-[#2B543D] flex items-center justify-center bg-[#0D261A] transition-transform duration-500 group-hover:rotate-45">
-            <svg
-              className="w-6 h-6 text-[#9BB89E]"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-            >
-              <circle cx="12" cy="12" r="9" strokeDasharray="3 2" />
-              <circle cx="12" cy="12" r="6" />
-              <circle cx="12" cy="12" r="2.5" fill="currentColor" />
-            </svg>
-          </div>
-          <div className="flex items-baseline gap-2">
-            <span className="font-serif text-2xl tracking-tight text-[#F5F4EE] font-medium group-hover:text-white transition-colors">
-              Green Tree
-            </span>
-            <span className="text-[10px] tracking-[0.3em] font-sans font-semibold text-[#8FA98F]">
-              AGENCY
-            </span>
-          </div>
+        <a
+          href="#top"
+          className="group flex items-center gap-3 no-underline text-[#F2F1EA]"
+        >
+          <span className="w-9 h-9 rounded-full bg-[#C9D8B0] flex items-center justify-center p-1 shadow-sm shrink-0 transition-transform duration-300 group-hover:scale-105">
+            <img
+              src="/logo_image/gta-symbol-xanh-128.png"
+              alt="Green Tree Agency Logo"
+              width={32}
+              height={32}
+              className="w-full h-full object-contain"
+            />
+          </span>
+          <span className="serif text-[26px] tracking-[0.01em]">Green Tree</span>
+          <span className="text-[11px] tracking-[0.22em] uppercase text-[#C9D8B0] mt-1">
+            Agency
+          </span>
         </a>
 
-        {/* Desktop Nav Links */}
-        <nav className="hidden md:flex items-center gap-10">
-          <a
-            href="#services"
-            className="text-sm font-sans font-medium text-[#CCDACC] hover:text-[#F5F4EE] transition-colors"
-          >
+        {/* Navigation links */}
+        <nav
+          className="navlinks hidden md:flex items-center"
+          aria-label="Main"
+          style={{ gap: '36px' }}
+        >
+          <a className="navlink" href="#services">
             Services
           </a>
-          <a
-            href="#process"
-            className="text-sm font-sans font-medium text-[#CCDACC] hover:text-[#F5F4EE] transition-colors"
-          >
+          <a className="navlink" href="#process">
             Process
           </a>
-          <a
-            href="#work"
-            className="text-sm font-sans font-medium text-[#CCDACC] hover:text-[#F5F4EE] transition-colors"
-          >
+          <a className="navlink" href="#work">
             Work
           </a>
-          <a
-            href="#about"
-            className="text-sm font-sans font-medium text-[#CCDACC] hover:text-[#F5F4EE] transition-colors"
-          >
+          <a className="navlink" href="#about">
             About
           </a>
         </nav>
 
-        {/* Action Button: Start a project */}
-        <div className="flex items-center gap-3">
-          <button
-            onClick={onOpenContact}
-            className="cursor-pointer group relative inline-flex items-center gap-3 bg-[#F5F4EE] text-[#091710] px-5 py-2.5 rounded-full font-sans font-medium text-sm transition-all duration-300 hover:bg-white hover:shadow-lg hover:shadow-emerald-950/50 active:scale-95"
-          >
-            <span>Start a project</span>
-            <div className="w-6 h-6 rounded-full bg-[#091710] flex items-center justify-center text-[#F5F4EE] transition-transform duration-300 group-hover:scale-105">
-              <svg
-                className="w-3.5 h-3.5"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-              >
-                <circle cx="12" cy="12" r="9" strokeDasharray="2 1" />
-                <path d="M12 7v5l3 3" />
-              </svg>
-            </div>
-          </button>
-        </div>
+        {/* CTA Button */}
+        <a className="btn btn-light hdr-btn hidden sm:inline-flex" href="#contact">
+          <span className="btn-fill" />
+          <span>Start a project</span>
+          <span className="btn-ring">
+            <svg
+              className="ring-ico"
+              viewBox="0 0 100 100"
+              width="26"
+              height="26"
+              aria-hidden="true"
+              style={{ strokeWidth: 4.5 }}
+            >
+              <use href="#gt-ring" />
+            </svg>
+          </span>
+        </a>
       </div>
+
+      {/* Reading Progress Line */}
+      <div
+        className="progress"
+        ref={progressRef}
+        style={{ height: '2px', background: '#C9D8B0' }}
+      />
     </header>
   )
 }
+

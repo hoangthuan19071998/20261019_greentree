@@ -1,11 +1,12 @@
-import React from 'react'
+import type { FC } from 'react'
+// import React
 import { ArrowUpRight } from 'lucide-react'
 
 interface WhoWeAreSectionProps {
   onOpenContact: () => void
 }
 
-export const WhoWeAreSection: React.FC<WhoWeAreSectionProps> = ({ onOpenContact }) => {
+export const WhoWeAreSection: FC<WhoWeAreSectionProps> = ({ onOpenContact }) => {
   return (
     <div
       id="about"
@@ -16,13 +17,14 @@ export const WhoWeAreSection: React.FC<WhoWeAreSectionProps> = ({ onOpenContact 
 
       {/* Top Tag */}
       <div>
-        <span className="text-xs tracking-[0.25em] font-sans font-semibold text-[#8FA98F] uppercase block mb-6">
-          01 — WHO WE ARE
+        <div className="flex items-center gap-2.5 mb-6"><span className="w-6 h-6 rounded-full bg-[#C9D8B0] p-0.5 inline-flex items-center justify-center shrink-0"><img src="/logo_image/gta-symbol-xanh-64.png" alt="GTA" width={16} height={16} className="w-full h-full object-contain" /></span><span className="text-xs tracking-[0.25em] font-sans font-semibold text-[#8FA98F] uppercase block">
+          01 â€” WHO WE ARE
         </span>
+        </div>
 
         {/* Lead Quote */}
         <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl text-[#F5F4EE] font-normal leading-[1.25] mb-6">
-          We're a performance-led digital agency in Da Nang that grows brands the way trees grow —{' '}
+          We're a performance-led digital agency in Da Nang that grows brands the way trees grow â€”{' '}
           <span className="italic text-[#A7C7AC] font-light">
             patiently, from the roots up.
           </span>
@@ -58,3 +60,4 @@ export const WhoWeAreSection: React.FC<WhoWeAreSectionProps> = ({ onOpenContact 
     </div>
   )
 }
+

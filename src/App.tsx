@@ -1,124 +1,188 @@
-import { useState, useRef } from 'react'
+import { useEffect, useRef } from 'react'
+import { TreeRingSymbol } from './components/TreeRingSymbol'
+import { CustomCursor } from './components/CustomCursor'
+import { TapRipple } from './components/TapRipple'
 import { Navbar } from './components/Navbar'
 import { HeroSection } from './components/HeroSection'
-import { WhoWeAreSection } from './components/WhoWeAreSection'
-import { ServicesSection } from './components/ServicesSection'
-import { GreenProcessSection } from './components/GreenProcessSection'
+import { HorizontalJourney } from './components/HorizontalJourney'
+import { ProcessSection } from './components/ProcessSection'
 import { SelectedWorkSection } from './components/SelectedWorkSection'
 import { QuoteSection } from './components/QuoteSection'
 import { ContactSection } from './components/ContactSection'
-import { ContactModal } from './components/ContactModal'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 export function App() {
-  const [isContactOpen, setIsContactOpen] = useState(false)
-  const storyTrackRef = useRef<HTMLDivElement>(null)
+  const rootRef = useRef<HTMLDivElement>(null)
+  const progRef = useRef<HTMLDivElement>(null)
+  const ringRef = useRef<SVGSVGElement>(null)
+  const hzRef = useRef<HTMLDivElement>(null)
+  const pinRef = useRef<HTMLDivElement>(null)
+  const trackRef = useRef<HTMLDivElement>(null)
+  const hzProgRef = useRef<HTMLSpanElement>(null)
 
-  const scrollToStory = () => {
-    const el = document.getElementById('story-container')
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' })
-    }
-  }
+  useEffect(() => {
+    const rootEl = rootRef.current
+    if (!rootEl) return
 
-  const scrollTrack = (direction: 'left' | 'right') => {
-    if (storyTrackRef.current) {
-      const scrollAmount = direction === 'left' ? -650 : 650
-      storyTrackRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' })
+    const reduce =
+      window.matchMedia &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+    // IntersectionObserver for reveal animation (.rv -> .rv.in)
+    let io: IntersectionObserver | null = null
+    if ('IntersectionObserver' in window) {
+      io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((en) => {
+            if (en.isIntersecting) {
+              en.target.classList.add('in')
+              io?.unobserve(en.target)
+            }
+          })
+        },
+        { rootMargin: '0px 0px -12% 0px', threshold: 0.05 }
+      )
+      const observeAll = () => {
+        if (rootRef.current) {
+          rootRef.current.querySelectorAll('.rv:not(.in)').forEach((el) => {
+            io?.observe(el)
+          })
+        }
+      }
+      setTimeout(observeAll, 50)
+    } else {
+      rootEl.querySelectorAll('.rv').forEach((el) => el.classList.add('in'))
     }
-  }
+
+    const clamp = (v: number) => Math.max(0, Math.min(1, v))
+    let dist = 0
+    let ticking = false
+    let pars: NodeListOf<SVGElement> | null = null
+
+    const layout = () => {
+      if (reduce || !hzRef.current || !pinRef.current || !trackRef.current) return
+      dist = Math.max(0, trackRef.current.scrollWidth - pinRef.current.clientWidth)
+      hzRef.current.style.height = `${pinRef.current.offsetHeight + dist}px`
+    }
+
+    const update = () => {
+      ticking = false
+      const vh = window.innerHeight || 800
+      if (rootRef.current) {
+        const r = rootRef.current.getBoundingClientRect()
+        const pg = clamp(-r.top / Math.max(1, r.height - vh))
+        if (progRef.current) {
+          progRef.current.style.transform = `scaleX(${pg.toFixed(4)})`
+        }
+        if (ringRef.current && !reduce) {
+          const hp = clamp(-r.top / 900)
+          ringRef.current.style.transform = `rotate(${(hp * 140).toFixed(
+            2
+          )}deg) scale(${(1 + hp * 0.15).toFixed(3)})`
+        }
+      }
+
+      if (!reduce && hzRef.current && trackRef.current && dist) {
+        const hr = hzRef.current.getBoundingClientRect()
+        const pinTop = pinRef.current
+          ? parseFloat(getComputedStyle(pinRef.current).top) || 0
+          : 0
+        const p = clamp((pinTop - hr.top) / dist)
+        trackRef.current.style.transform = `translate3d(${(-p * dist).toFixed(
+          1
+        )}px, 0, 0)`
+
+        if (hzProgRef.current) {
+          hzProgRef.current.style.transform = `scaleX(${p.toFixed(4)})`
+        }
+
+        if (!pars && hzRef.current) {
+          pars = hzRef.current.querySelectorAll<SVGElement>('.hz-par')
+        }
+        if (pars) {
+          const off = ((p - 0.5) * 120).toFixed(1)
+          for (let i = 0; i < pars.length; i++) {
+            pars[i].style.transform = `translateX(${off}px) scale(1.12)`
+          }
+        }
+      }
+    }
+
+    const onScroll = () => {
+      if (!ticking) {
+        ticking = true
+        requestAnimationFrame(update)
+      }
+    }
+
+    const onResize = () => {
+      pars = null
+      layout()
+      onScroll()
+    }
+
+    document.addEventListener('scroll', onScroll, { capture: true, passive: true })
+    window.addEventListener('resize', onResize, { passive: true })
+
+    const t1 = setTimeout(onResize, 80)
+    const t2 = setTimeout(onResize, 600)
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(onResize)
+    }
+
+    return () => {
+      document.removeEventListener('scroll', onScroll, { capture: true })
+      window.removeEventListener('resize', onResize)
+      clearTimeout(t1)
+      clearTimeout(t2)
+      if (io) io.disconnect()
+    }
+  }, [])
 
   return (
-    <div className="min-h-screen bg-[#091710] text-[#F5F4EE] flex flex-col font-sans selection:bg-[#ADC2AD] selection:text-[#091710]">
-      {/* Top Navigation */}
-      <Navbar onOpenContact={() => setIsContactOpen(true)} />
+    <div
+      className="gt js js-hz"
+      ref={rootRef}
+      style={{
+        width: '100%',
+        fontFamily: "'Manrope', system-ui, sans-serif",
+        color: '#1A1F1C',
+        background: '#F2F1EA',
+      }}
+    >
+      {/* Global SVG Symbol definitions */}
+      <TreeRingSymbol />
+
+      {/* Custom Lerp Cursor */}
+      <CustomCursor />
+
+      {/* Touch Screen Tap Ripple */}
+      <TapRipple />
+
+      {/* Sticky Header with Reading Progress */}
+      <Navbar progressRef={progRef} />
 
       {/* Hero Section */}
-      <HeroSection onScrollToStory={scrollToStory} />
+      <HeroSection ringRef={ringRef} />
 
-      {/* Horizontal Story Section */}
-      <section id="story-container" className="py-16 bg-[#07140E] border-t border-[#183927] relative overflow-hidden">
-        {/* Subtle Ambient Background glow */}
-        <div className="absolute left-1/3 top-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-[#143B27]/15 rounded-full blur-3xl pointer-events-none" />
+      {/* Horizontal Journey: Who We Are & Services */}
+      <HorizontalJourney
+        hzRef={hzRef}
+        pinRef={pinRef}
+        trackRef={trackRef}
+        hzProgRef={hzProgRef}
+      />
 
-        <div className="max-w-[1920px] mx-auto px-6">
-          {/* Section Track Header with Controls */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-[#1A3F2B]/60">
-            <div className="flex items-center gap-3">
-              <span className="w-2.5 h-2.5 rounded-full bg-[#5FB88C] animate-pulse" />
-              <span className="font-mono text-xs tracking-[0.2em] text-[#8FA98F] uppercase">
-                THE STORY STREAM · HORIZONTAL PANELS
-              </span>
-            </div>
+      {/* The G.R.E.E.N. Process (Vertical) */}
+      <ProcessSection />
 
-            <div className="flex items-center gap-3">
-              <span className="text-xs font-mono text-[#66886E] hidden md:inline">
-                Scroll horizontally or use controls
-              </span>
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={() => scrollTrack('left')}
-                  aria-label="Previous section"
-                  className="cursor-pointer w-9 h-9 rounded-full bg-[#0D261A] border border-[#214D35] flex items-center justify-center text-[#CCDACC] hover:text-white hover:border-[#5FB88C] transition-all active:scale-95"
-                >
-                  <ChevronLeft className="w-4 h-4" />
-                </button>
-                <button
-                  onClick={() => scrollTrack('right')}
-                  aria-label="Next section"
-                  className="cursor-pointer w-9 h-9 rounded-full bg-[#0D261A] border border-[#214D35] flex items-center justify-center text-[#CCDACC] hover:text-white hover:border-[#5FB88C] transition-all active:scale-95"
-                >
-                  <ChevronRight className="w-4 h-4" />
-                </button>
-              </div>
-            </div>
-          </div>
+      {/* Selected Work (Vertical) */}
+      <SelectedWorkSection />
 
-          {/* Horizontal Scroll Track */}
-          <div
-            ref={storyTrackRef}
-            className="flex items-stretch gap-6 overflow-x-auto pb-8 pt-2 scrollbar-thin snap-x snap-mandatory focus:outline-none"
-            tabIndex={0}
-            onKeyDown={(e) => {
-              if (e.key === 'ArrowRight') scrollTrack('right')
-              if (e.key === 'ArrowLeft') scrollTrack('left')
-            }}
-          >
-            {/* Panel 1: Who We Are */}
-            <div className="snap-start shrink-0">
-              <WhoWeAreSection onOpenContact={() => setIsContactOpen(true)} />
-            </div>
+      {/* Philosophy Quote (Vertical) */}
+      <QuoteSection />
 
-            {/* Panel 2: Services */}
-            <div className="snap-start shrink-0">
-              <ServicesSection />
-            </div>
-
-            {/* Panel 3: How We Work (The G.R.E.E.N. Process) */}
-            <div className="snap-start shrink-0">
-              <GreenProcessSection />
-            </div>
-
-            {/* Panel 4: Selected Work */}
-            <div className="snap-start shrink-0">
-              <SelectedWorkSection />
-            </div>
-
-            {/* Panel 5: Quote Interlude */}
-            <div className="snap-start shrink-0">
-              <QuoteSection />
-            </div>
-
-            {/* Panel 6: Contact & Footer */}
-            <div className="snap-start shrink-0">
-              <ContactSection onOpenContact={() => setIsContactOpen(true)} />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Contact Discovery Modal */}
-      <ContactModal isOpen={isContactOpen} onClose={() => setIsContactOpen(false)} />
+      {/* Contact & Footer (Vertical) */}
+      <ContactSection />
     </div>
   )
 }

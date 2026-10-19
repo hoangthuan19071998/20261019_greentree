@@ -1,86 +1,266 @@
-import React from 'react'
-import { TreeRingsBackground } from './TreeRingsBackground'
+import type { FC, RefObject } from 'react'
 
 interface HeroSectionProps {
-  onScrollToStory?: () => void
+  ringRef?: RefObject<SVGSVGElement | null>
 }
 
-export const HeroSection: React.FC<HeroSectionProps> = ({ onScrollToStory }) => {
-  const acronyms = [
-    { letter: 'G', rest: 'round' },
-    { letter: 'R', rest: 'oot' },
-    { letter: 'E', rest: 'ngage' },
-    { letter: 'E', rest: 'levate' },
-    { letter: 'N', rest: 'urture' },
-  ]
-
+export const HeroSection: FC<HeroSectionProps> = ({ ringRef }) => {
   return (
-    <section id="top" className="relative min-h-screen pt-28 pb-16 flex flex-col justify-between overflow-hidden bg-[#091710]">
-      {/* Background Rings */}
-      <TreeRingsBackground />
+    <section
+      id="top"
+      style={{
+        position: 'relative',
+        background: '#14261E',
+        color: '#F2F1EA',
+        overflow: 'hidden',
+      }}
+    >
+      {/* Animated Rotating Tree Ring on Scroll - Anchored to 1440px grid */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: '50%',
+          transform: 'translateX(-50%)',
+          width: '100%',
+          maxWidth: '1440px',
+          height: '100%',
+          pointerEvents: 'none',
+          overflow: 'visible',
+          zIndex: 1,
+        }}
+      >
+        <svg
+          className="hero-ring"
+          ref={ringRef}
+          width="980"
+          height="980"
+          viewBox="0 0 980 980"
+          fill="none"
+          aria-hidden="true"
+          style={{
+            position: 'absolute',
+            right: '-260px',
+            top: '40px',
+            opacity: 0.55,
+            boxShadow: 'none',
+            transformOrigin: '490px 490px',
+          }}
+        >
+          <circle cx="490" cy="490" r="480" stroke="#2E4D3E" strokeWidth="1" />
+          <circle cx="478" cy="500" r="420" stroke="#2E4D3E" strokeWidth="1" />
+          <circle cx="496" cy="486" r="356" stroke="#2E4D3E" strokeWidth="1" />
+          <circle cx="484" cy="496" r="300" stroke="#3B5E4C" strokeWidth="1" />
+          <circle cx="492" cy="488" r="236" stroke="#3B5E4C" strokeWidth="1" />
+          <circle cx="486" cy="494" r="178" stroke="#4A6E5A" strokeWidth="1" />
+          <circle cx="494" cy="490" r="118" stroke="#4A6E5A" strokeWidth="1" />
+          <circle cx="490" cy="492" r="62" stroke="#6B8B6E" strokeWidth="1" />
+          <circle cx="490" cy="490" r="8" fill="#C9D8B0" />
+        </svg>
+      </div>
 
-      {/* Main Grid Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 w-full my-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-        
-        {/* Left Side: G.R.E.E.N. Vertical Acronym */}
-        <div className="lg:col-span-6 flex flex-col justify-center space-y-2 md:space-y-3 select-none">
-          {acronyms.map((item, idx) => (
-            <div
-              key={idx}
-              className="flex items-baseline group transition-all duration-300 hover:translate-x-2"
-            >
-              <span className="font-serif text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-light text-[#F5F4EE] leading-none transition-colors duration-300 group-hover:text-white">
-                {item.letter}
-              </span>
-              <span className="font-serif italic text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-[#9BB89E] ml-2 font-normal transition-colors duration-300 group-hover:text-[#BCE0BF]">
-                {item.rest}
-              </span>
-            </div>
-          ))}
-        </div>
-
-        {/* Right Side: Headline and Studio Copy */}
-        <div className="lg:col-span-6 flex flex-col justify-center lg:pl-10 space-y-6">
-          <div className="space-y-3">
-            <span className="inline-block text-[11px] sm:text-xs tracking-[0.25em] font-sans font-semibold text-[#8FA98F] uppercase">
-              DIGITAL GROWTH STUDIO
+      {/* Hero Grid */}
+      <div
+        className="pad two-col hero-grid"
+        style={{
+          position: 'relative',
+          maxWidth: '1440px',
+          margin: '0 auto',
+          padding: '120px 56px 230px',
+          display: 'grid',
+          gridTemplateColumns: 'minmax(0, 1.4fr) minmax(0, 1fr)',
+          gap: '48px',
+          alignItems: 'end',
+          minHeight: '820px',
+        }}
+      >
+        {/* Acronym with staggered rise */}
+        <h1
+          className="serif hero-letters"
+          style={{
+            margin: 0,
+            fontWeight: 400,
+            fontSize: '132px',
+            lineHeight: 0.94,
+            letterSpacing: '-.01em',
+          }}
+        >
+          <span className="hl">
+            <span>
+              G
+              <em
+                className="word"
+                style={{
+                  fontSize: '.34em',
+                  fontStyle: 'italic',
+                  color: '#C9D8B0',
+                  marginLeft: '10px',
+                }}
+              >
+                round
+              </em>
             </span>
-            <h1 className="font-serif italic text-4xl sm:text-5xl md:text-6xl text-[#F5F4EE] font-normal leading-[1.12]">
-              Brands aren't built overnight. They're grown.
-            </h1>
-          </div>
+          </span>
+          <span className="hl">
+            <span>
+              R
+              <em
+                className="word"
+                style={{
+                  fontSize: '.34em',
+                  fontStyle: 'italic',
+                  color: '#C9D8B0',
+                  marginLeft: '10px',
+                }}
+              >
+                oot
+              </em>
+            </span>
+          </span>
+          <span className="hl">
+            <span>
+              E
+              <em
+                className="word"
+                style={{
+                  fontSize: '.34em',
+                  fontStyle: 'italic',
+                  color: '#C9D8B0',
+                  marginLeft: '10px',
+                }}
+              >
+                ngage
+              </em>
+            </span>
+          </span>
+          <span className="hl">
+            <span>
+              E
+              <em
+                className="word"
+                style={{
+                  fontSize: '.34em',
+                  fontStyle: 'italic',
+                  color: '#C9D8B0',
+                  marginLeft: '10px',
+                }}
+              >
+                levate
+              </em>
+            </span>
+          </span>
+          <span className="hl">
+            <span>
+              N
+              <em
+                className="word"
+                style={{
+                  fontSize: '.34em',
+                  fontStyle: 'italic',
+                  color: '#C9D8B0',
+                  marginLeft: '10px',
+                }}
+              >
+                urture
+              </em>
+            </span>
+          </span>
+        </h1>
 
-          <p className="text-base sm:text-lg text-[#CCDACC] leading-relaxed max-w-md font-sans font-light">
-            Performance advertising, content and digital strategy — rooted in data, cultivated with care.
+        {/* Hero Side */}
+        <div
+          className="hero-side"
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '32px',
+            paddingBottom: '16px',
+          }}
+        >
+          <p
+            style={{
+              margin: 0,
+              fontSize: '12px',
+              letterSpacing: '.24em',
+              textTransform: 'uppercase',
+              color: '#C9D8B0',
+            }}
+          >
+            Digital Growth Studio
+          </p>
+          <p
+            className="serif"
+            style={{
+              margin: 0,
+              fontSize: '40px',
+              lineHeight: 1.12,
+              fontStyle: 'italic',
+            }}
+          >
+            Brands aren't built overnight. They're grown.
+          </p>
+          <p
+            style={{
+              margin: 0,
+              fontSize: '16px',
+              lineHeight: 1.7,
+              color: '#CDD3CB',
+              maxWidth: '420px',
+            }}
+          >
+            Performance advertising, content and digital strategy {'\u2014'} rooted in
+            data, cultivated with care.
           </p>
         </div>
       </div>
 
-      {/* Bottom Scroll Cue */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 w-full pt-8 flex items-center justify-between border-t border-[#1F4733]/40">
-        <a
-          href="#about"
-          onClick={(e) => {
-            if (onScrollToStory) {
-              e.preventDefault()
-              onScrollToStory()
-            }
-          }}
-          className="group inline-flex items-center gap-3 text-xs tracking-[0.2em] font-sans font-medium text-[#9BB89E] hover:text-[#F5F4EE] transition-colors"
-        >
-          <span>SCROLL</span>
-          <span className="text-[#3E7356]">·</span>
-          <span>THE STORY MOVES SIDEWAYS</span>
-          <span className="transition-transform duration-300 group-hover:translate-x-1.5 text-base">
-            →
+      {/* Scroll Cue */}
+      <a
+        className="scroll-cue"
+        href="#about"
+        aria-label="Scroll down — the next sections move sideways"
+      >
+        <span className="cue-line" />
+        <span className="cue-row">
+          <svg
+            className="ring-ico"
+            viewBox="0 0 100 100"
+            width="96"
+            height="96"
+            aria-hidden="true"
+            style={{ strokeWidth: 2.2 }}
+          >
+            <use href="#gt-ring" />
+          </svg>
+          <span className="cue-h" aria-hidden="true">
+            <span className="cue-h-line" />
+            <span className="cue-dot" />
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 18 18"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path
+                d="M5 3 L12 9 L5 15"
+                stroke="#C9D8B0"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
           </span>
-        </a>
-
-        <div className="hidden sm:flex items-center gap-2 text-xs font-sans text-[#708A74]">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#5FB88C] animate-pulse" />
-          <span>Da Nang, Vietnam</span>
-        </div>
-      </div>
+          <span className="cue-h cue-h-left" aria-hidden="true">
+            <span className="cue-h-line" />
+          </span>
+        </span>
+        <span className="cue-label">
+          Scroll <span style={{ color: '#C9D8B0' }}>{'\u00B7'}</span> the story moves
+          sideways <span style={{ color: '#C9D8B0' }}>{'\u2192'}</span>
+        </span>
+      </a>
     </section>
   )
 }
