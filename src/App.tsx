@@ -1,85 +1,124 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
+import { Navbar } from './components/Navbar'
+import { HeroSection } from './components/HeroSection'
+import { WhoWeAreSection } from './components/WhoWeAreSection'
+import { ServicesSection } from './components/ServicesSection'
+import { GreenProcessSection } from './components/GreenProcessSection'
+import { SelectedWorkSection } from './components/SelectedWorkSection'
+import { QuoteSection } from './components/QuoteSection'
+import { ContactSection } from './components/ContactSection'
+import { ContactModal } from './components/ContactModal'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 
-function App() {
-  const [count, setCount] = useState<number>(0)
+export function App() {
+  const [isContactOpen, setIsContactOpen] = useState(false)
+  const storyTrackRef = useRef<HTMLDivElement>(null)
 
-  const techStack = [
-    { name: 'Vite', description: 'Next Generation Frontend Tooling', badge: 'v8.x', color: 'from-purple-500 to-indigo-600' },
-    { name: 'React', description: 'The library for web and native user interfaces', badge: 'v19.x', color: 'from-cyan-500 to-blue-600' },
-    { name: 'TypeScript', description: 'JavaScript with syntax for types', badge: 'v7.x', color: 'from-blue-600 to-sky-700' },
-    { name: 'Tailwind CSS', description: 'A utility-first CSS framework', badge: 'v4.x', color: 'from-teal-400 to-emerald-600' },
-  ]
+  const scrollToStory = () => {
+    const el = document.getElementById('story-container')
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
+
+  const scrollTrack = (direction: 'left' | 'right') => {
+    if (storyTrackRef.current) {
+      const scrollAmount = direction === 'left' ? -650 : 650
+      storyTrackRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' })
+    }
+  }
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col items-center justify-center p-6 selection:bg-cyan-500 selection:text-white">
-      {/* Background glow effects */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10">
-        <div className="absolute -top-40 -left-40 w-96 h-96 bg-purple-600/20 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute -bottom-40 -right-40 w-96 h-96 bg-cyan-600/20 rounded-full blur-3xl animate-pulse" />
-      </div>
+    <div className="min-h-screen bg-[#091710] text-[#F5F4EE] flex flex-col font-sans selection:bg-[#ADC2AD] selection:text-[#091710]">
+      {/* Top Navigation */}
+      <Navbar onOpenContact={() => setIsContactOpen(true)} />
 
-      <main className="max-w-3xl w-full flex flex-col items-center text-center space-y-8">
-        {/* Header badge */}
-        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-slate-800 bg-slate-900/80 backdrop-blur-sm text-xs font-medium text-slate-300 shadow-inner">
-          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-          <span>Dự án sẵn sàng phát triển</span>
-        </div>
+      {/* Hero Section */}
+      <HeroSection onScrollToStory={scrollToStory} />
 
-        {/* Title */}
-        <div className="space-y-3">
-          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight bg-gradient-to-r from-cyan-400 via-sky-300 to-purple-400 bg-clip-text text-transparent">
-            Vite + React + TypeScript + Tailwind CSS
-          </h1>
-          <p className="text-slate-400 text-base md:text-lg max-w-xl mx-auto">
-            Dự án đã được cấu hình hoàn chỉnh với Tailwind CSS v4, sẵn sàng để bạn xây dựng ứng dụng hiện đại và tốc độ cao.
-          </p>
-        </div>
+      {/* Horizontal Story Section */}
+      <section id="story-container" className="py-16 bg-[#07140E] border-t border-[#183927] relative overflow-hidden">
+        {/* Subtle Ambient Background glow */}
+        <div className="absolute left-1/3 top-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-[#143B27]/15 rounded-full blur-3xl pointer-events-none" />
 
-        {/* Counter Demo */}
-        <div className="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 shadow-xl backdrop-blur-md flex flex-col sm:flex-row items-center gap-4">
-          <button
-            type="button"
-            onClick={() => setCount((prev) => prev + 1)}
-            className="cursor-pointer px-6 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 active:scale-95 transition-all text-white font-semibold shadow-lg shadow-cyan-500/25"
-          >
-            Số lần bấm: {count}
-          </button>
-          <button
-            type="button"
-            onClick={() => setCount(0)}
-            className="cursor-pointer px-4 py-2.5 rounded-xl border border-slate-700 hover:bg-slate-800 active:scale-95 transition-all text-slate-300 font-medium text-sm"
-          >
-            Reset
-          </button>
-        </div>
-
-        {/* Tech Stack Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full text-left">
-          {techStack.map((tech) => (
-            <div
-              key={tech.name}
-              className="p-5 rounded-xl bg-slate-900/50 border border-slate-800/80 hover:border-slate-700 hover:bg-slate-900/90 transition-all group"
-            >
-              <div className="flex items-center justify-between mb-2">
-                <span className="font-bold text-lg text-white group-hover:text-cyan-300 transition-colors">
-                  {tech.name}
-                </span>
-                <span className={`text-[11px] font-semibold px-2 py-0.5 rounded-md text-white bg-gradient-to-r ${tech.color}`}>
-                  {tech.badge}
-                </span>
-              </div>
-              <p className="text-sm text-slate-400">
-                {tech.description}
-              </p>
+        <div className="max-w-[1920px] mx-auto px-6">
+          {/* Section Track Header with Controls */}
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-[#1A3F2B]/60">
+            <div className="flex items-center gap-3">
+              <span className="w-2.5 h-2.5 rounded-full bg-[#5FB88C] animate-pulse" />
+              <span className="font-mono text-xs tracking-[0.2em] text-[#8FA98F] uppercase">
+                THE STORY STREAM · HORIZONTAL PANELS
+              </span>
             </div>
-          ))}
-        </div>
 
-        {/* Getting started note */}
-        <p className="text-xs text-slate-500">
-          Chỉnh sửa <code className="px-1.5 py-0.5 rounded bg-slate-800 text-slate-300 font-mono">src/App.tsx</code> để bắt đầu.
-        </p>
-      </main>
+            <div className="flex items-center gap-3">
+              <span className="text-xs font-mono text-[#66886E] hidden md:inline">
+                Scroll horizontally or use controls
+              </span>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => scrollTrack('left')}
+                  aria-label="Previous section"
+                  className="cursor-pointer w-9 h-9 rounded-full bg-[#0D261A] border border-[#214D35] flex items-center justify-center text-[#CCDACC] hover:text-white hover:border-[#5FB88C] transition-all active:scale-95"
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                </button>
+                <button
+                  onClick={() => scrollTrack('right')}
+                  aria-label="Next section"
+                  className="cursor-pointer w-9 h-9 rounded-full bg-[#0D261A] border border-[#214D35] flex items-center justify-center text-[#CCDACC] hover:text-white hover:border-[#5FB88C] transition-all active:scale-95"
+                >
+                  <ChevronRight className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* Horizontal Scroll Track */}
+          <div
+            ref={storyTrackRef}
+            className="flex items-stretch gap-6 overflow-x-auto pb-8 pt-2 scrollbar-thin snap-x snap-mandatory focus:outline-none"
+            tabIndex={0}
+            onKeyDown={(e) => {
+              if (e.key === 'ArrowRight') scrollTrack('right')
+              if (e.key === 'ArrowLeft') scrollTrack('left')
+            }}
+          >
+            {/* Panel 1: Who We Are */}
+            <div className="snap-start shrink-0">
+              <WhoWeAreSection onOpenContact={() => setIsContactOpen(true)} />
+            </div>
+
+            {/* Panel 2: Services */}
+            <div className="snap-start shrink-0">
+              <ServicesSection />
+            </div>
+
+            {/* Panel 3: How We Work (The G.R.E.E.N. Process) */}
+            <div className="snap-start shrink-0">
+              <GreenProcessSection />
+            </div>
+
+            {/* Panel 4: Selected Work */}
+            <div className="snap-start shrink-0">
+              <SelectedWorkSection />
+            </div>
+
+            {/* Panel 5: Quote Interlude */}
+            <div className="snap-start shrink-0">
+              <QuoteSection />
+            </div>
+
+            {/* Panel 6: Contact & Footer */}
+            <div className="snap-start shrink-0">
+              <ContactSection onOpenContact={() => setIsContactOpen(true)} />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Discovery Modal */}
+      <ContactModal isOpen={isContactOpen} onClose={() => setIsContactOpen(false)} />
     </div>
   )
 }
