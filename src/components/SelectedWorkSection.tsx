@@ -349,9 +349,9 @@ export const SelectedWorkSection: FC = () => {
                       </span>
                     </div>
 
-                    {/* Client Name */}
+                    {/* Client Name - Prominent and impactful */}
                     <h3
-                      className="serif text-2xl lg:text-[26px] font-normal text-[#14261E] group-hover:text-[#3E6B52] transition-colors leading-snug mb-2.5"
+                      className="serif text-[25px] sm:text-[28px] lg:text-[30px] font-bold text-[#0D2118] group-hover:text-[#2A6546] transition-colors leading-tight mb-2.5 tracking-[-0.015em]"
                     >
                       {project.client}
                     </h3>
