@@ -481,6 +481,26 @@
   overflow: hidden;
   background: #DCDDD0;
 }
+.service-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease;
+  filter: brightness(0.92) contrast(1.04);
+}
+.hz-panel.p-card:hover .service-img {
+  transform: scale(1.05);
+  filter: brightness(0.98) contrast(1.06);
+}
+.service-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(20, 38, 30, 0.6) 0%, rgba(20, 38, 30, 0.15) 50%, transparent 100%);
+  pointer-events: none;
+  z-index: 1;
+}
 .ph-label {
   position: absolute;
   left: 20px;
@@ -489,6 +509,46 @@
   letter-spacing: .14em;
   text-transform: uppercase;
   color: #3E4740;
+}
+.about-img-box {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  min-height: 250px;
+  max-height: 320px;
+  height: 100%;
+  box-shadow: 0 16px 36px -8px rgba(20, 38, 30, 0.14);
+  border: 1px solid rgba(201, 203, 190, 0.65);
+}
+.about-img-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.about-img-box:hover img {
+  transform: scale(1.03);
+}
+.about-badge {
+  position: absolute;
+  bottom: 14px;
+  left: 14px;
+  background: rgba(20, 38, 30, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #F2F1EA;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 /* Responsive adjustments */

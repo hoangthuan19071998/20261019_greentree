@@ -22,6 +22,7 @@ const servicesData = [
     title: 'Performance Ads',
     desc: 'Meta, Google and TikTok campaigns built around your margins — not vanity metrics. Planned, tested and optimised weekly.',
     tags: ['Meta Ads', 'Google Ads', 'TikTok Ads'],
+    image: '/images/service-performance-ads.jpg',
   },
   {
     num: '02',
@@ -29,6 +30,7 @@ const servicesData = [
     title: 'Brand & Strategy',
     desc: 'Positioning, audience insight and a clear message — the roots every channel grows from.',
     tags: ['Positioning', 'Audience research', 'Messaging'],
+    image: '/images/service-brand-strategy.jpg',
   },
   {
     num: '03',
@@ -36,6 +38,7 @@ const servicesData = [
     title: 'Content & Social',
     desc: 'Creative that stops the scroll and stays on brand, from ad creatives to always-on social.',
     tags: ['Ad creative', 'Short video', 'Social'],
+    image: '/images/service-content-social.jpg',
   },
   {
     num: '04',
@@ -43,6 +46,7 @@ const servicesData = [
     title: 'Web & Landing Pages',
     desc: 'Fast, considered pages designed to turn paid traffic into customers.',
     tags: ['Landing pages', 'CRO', 'Tracking'],
+    image: '/images/service-web-landing.jpg',
   },
   {
     num: '05',
@@ -50,6 +54,7 @@ const servicesData = [
     title: 'SEO & Analytics',
     desc: 'Organic growth and honest reporting, so every decision is rooted in data.',
     tags: ['SEO', 'GA4', 'Dashboards'],
+    image: '/images/service-seo-analytics.jpg',
   },
 ].map((s, i) => ({ ...s, ...tones[i] }))
 
@@ -108,30 +113,18 @@ export const HorizontalJourney: FC<HorizontalJourneyProps> = ({
               className="two-col"
               style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
-                gap: '64px',
+                gridTemplateColumns: '1.05fr 0.95fr',
+                gap: '56px',
+                alignItems: 'center',
                 borderTop: '1px solid #C9CBBE',
-                paddingTop: '40px',
+                paddingTop: '36px',
               }}
             >
-              <p
-                className="hide-sm"
-                style={{
-                  margin: 0,
-                  fontSize: '17px',
-                  lineHeight: 1.75,
-                  color: '#3E4740',
-                }}
-              >
-                Every campaign starts below the surface: understanding your audience,
-                your market and what growth actually means for your business. Then we
-                plant the right channels and tend them until they bear fruit.
-              </p>
               <div
                 style={{
                   display: 'flex',
                   flexDirection: 'column',
-                  gap: '24px',
+                  gap: '20px',
                   alignItems: 'flex-start',
                 }}
               >
@@ -143,24 +136,59 @@ export const HorizontalJourney: FC<HorizontalJourneyProps> = ({
                     color: '#3E4740',
                   }}
                 >
+                  Every campaign starts below the surface: understanding your audience,
+                  your market and what growth actually means for your business. Then we
+                  plant the right channels and tend them until they bear fruit.
+                </p>
+                <p
+                  style={{
+                    margin: 0,
+                    fontSize: '16px',
+                    lineHeight: 1.75,
+                    color: '#5B635D',
+                  }}
+                >
                   Clear process. Measurable results. Honest reporting. Always curious.
                 </p>
-                <a className="btn btn-dark" href="#contact">
-                  <span className="btn-fill" />
-                  <span>Start a project</span>
-                  <span className="btn-ring">
-                    <svg
-                      className="ring-ico"
-                      viewBox="0 0 100 100"
-                      width="26"
-                      height="26"
-                      aria-hidden="true"
-                      style={{ strokeWidth: 4.5 }}
-                    >
-                      <use href="#gt-ring" />
-                    </svg>
-                  </span>
-                </a>
+                <div style={{ paddingTop: '6px' }}>
+                  <a className="btn btn-dark" href="#contact">
+                    <span className="btn-fill" />
+                    <span>Start a project</span>
+                    <span className="btn-ring">
+                      <svg
+                        className="ring-ico"
+                        viewBox="0 0 100 100"
+                        width="26"
+                        height="26"
+                        aria-hidden="true"
+                        style={{ strokeWidth: 4.5 }}
+                      >
+                        <use href="#gt-ring" />
+                      </svg>
+                    </span>
+                  </a>
+                </div>
+              </div>
+
+              <div className="about-img-box">
+                <img
+                  src="/images/about-studio-collab.jpg"
+                  alt="Green Tree Agency Studio Collaboration"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <div className="about-badge">
+                  <span
+                    style={{
+                      width: '6px',
+                      height: '6px',
+                      borderRadius: '50%',
+                      background: '#C9D8B0',
+                      display: 'inline-block',
+                    }}
+                  />
+                  <span>Da Nang Studio &bull; Est. 2026</span>
+                </div>
               </div>
             </div>
           </div>
@@ -260,6 +288,14 @@ export const HorizontalJourney: FC<HorizontalJourneyProps> = ({
                     background: s.ph,
                   }}
                 >
+                  <img
+                    className="service-img"
+                    src={s.image}
+                    alt={s.title}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <div className="service-overlay" />
                   <svg
                     className="hz-par"
                     viewBox="0 0 600 400"
@@ -270,6 +306,7 @@ export const HorizontalJourney: FC<HorizontalJourneyProps> = ({
                       inset: 0,
                       width: '100%',
                       height: '100%',
+                      zIndex: 2,
                     }}
                   >
                     <circle
@@ -305,9 +342,6 @@ export const HorizontalJourney: FC<HorizontalJourneyProps> = ({
                       strokeWidth="1"
                     />
                   </svg>
-                  <span className="ph-label" style={{ color: s.fg }}>
-                    [Image / video {'\u2014'} {s.title}]
-                  </span>
                 </div>
                 <div
                   className="card-body"
