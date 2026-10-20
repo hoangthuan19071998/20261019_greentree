@@ -249,6 +249,21 @@
 }
 
 /* Selected-work growth outcome: the commercial result is the card's peak. */
+.work-metrics {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: end;
+  gap: 14px 12px;
+}
+.work-highlight {
+  grid-column: 1 / -1;
+  text-align: left !important;
+}
+.work-highlight > span {
+  width: 100%;
+  justify-content: flex-start;
+  white-space: normal;
+}
 .work-growth {
   display: inline-flex;
   align-items: center;
@@ -263,7 +278,6 @@
   font-weight: 700;
   line-height: 1.2;
   letter-spacing: .01em;
-  white-space: nowrap;
 }
 .work-growth-icon {
   width: 16px;
@@ -276,6 +290,7 @@
 /* Compact booking pill (phones only, see mobile block) */
 .m-book {
   display: none;
+  flex: none;
   align-items: center;
   min-height: 44px;
   padding: 0 18px;
@@ -301,6 +316,7 @@
 /* Compact section menu for phones and narrower tablets. */
 .m-menu-btn {
   display: none;
+  flex: none;
   align-items: center;
   justify-content: center;
   width: 44px;
@@ -338,6 +354,10 @@
   top: 80px;
   left: 0;
   right: 0;
+  max-height: calc(100vh - 80px);
+  max-height: calc(100dvh - 80px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
   background: #C9D8B0;
   display: flex;
   flex-direction: column;
@@ -347,6 +367,7 @@
 }
 .m-menu a {
   display: flex;
+  flex: none;
   align-items: center;
   min-height: 48px;
   font-family: 'Manrope', system-ui, -apple-system, sans-serif;
@@ -607,6 +628,19 @@
 .gt.js-hz .hz-panel {
   height: 100%;
 }
+@media (max-height: 900px) {
+  .gt.js-hz .p-about {
+    padding-block: 32px !important;
+    gap: 24px !important;
+  }
+  .gt.js-hz .p-about .big {
+    font-size: clamp(44px, 4vw, 60px) !important;
+  }
+  .gt.js-hz .p-about .two-col {
+    padding-top: 24px !important;
+    gap: 32px !important;
+  }
+}
 .hz-par {
   transform: scale(1.12);
   will-change: transform;
@@ -833,7 +867,7 @@ section[id],
   header > .pad { gap: 8px !important; }
   .m-menu-btn { margin-left: auto; }
 }
-@media (max-width: 399px) {
+@media (max-width: 480px) {
   .brand-tag { display: none; }
   /* keep logo + menu + booking pill on one row at 360px */
   header .serif { font-size: 22px !important; }
@@ -842,23 +876,6 @@ section[id],
 @media (max-width: 359px) {
   header .serif { display: none; }
   .m-book { padding-inline: 12px; }
-}
-@media (max-width: 480px) {
-  .work-metrics {
-    display: grid !important;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    align-items: end;
-    gap: 14px 12px !important;
-  }
-  .work-highlight {
-    grid-column: 1 / -1;
-    text-align: left !important;
-  }
-  .work-highlight > span {
-    width: 100%;
-    justify-content: flex-start;
-    white-space: normal !important;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {

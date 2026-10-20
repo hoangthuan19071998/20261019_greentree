@@ -1,5 +1,5 @@
 import type { FC } from 'react'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 // import React
 
 interface NavbarProps {
@@ -8,11 +8,15 @@ interface NavbarProps {
 
 export const Navbar: FC<NavbarProps> = ({ progressRef }) => {
   const [menuOpen, setMenuOpen] = useState(false)
+  const menuButtonRef = useRef<HTMLButtonElement>(null)
 
   useEffect(() => {
     if (!menuOpen) return
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setMenuOpen(false)
+      if (e.key === 'Escape') {
+        setMenuOpen(false)
+        menuButtonRef.current?.focus()
+      }
     }
     const mq = window.matchMedia('(min-width: 1101px)')
     const onMq = () => {
@@ -41,7 +45,8 @@ export const Navbar: FC<NavbarProps> = ({ progressRef }) => {
         {/* Brand / Logo */}
         <a
           href="#top"
-          className="group flex items-center gap-3 no-underline text-[#F2F1EA]"
+          className="group flex shrink-0 items-center gap-3 whitespace-nowrap no-underline text-[#F2F1EA]"
+          onClick={closeMenu}
         >
           <span className="w-9 h-9 rounded-full bg-[#C9D8B0] flex items-center justify-center p-1 shadow-sm shrink-0 transition-transform duration-300 group-hover:scale-105">
             <img
@@ -87,8 +92,9 @@ export const Navbar: FC<NavbarProps> = ({ progressRef }) => {
           </a>
         </nav>
 
-        {/* Section menu toggle (phones only) */}
+        {/* Compact section menu */}
         <button
+          ref={menuButtonRef}
           type="button"
           className="m-menu-btn"
           aria-label="Menu"
@@ -105,8 +111,8 @@ export const Navbar: FC<NavbarProps> = ({ progressRef }) => {
           </svg>
         </button>
 
-        {/* Compact booking link (phones only) */}
-        <a className="m-book" href="#contact" aria-label="Book a call">
+        {/* Compact booking link */}
+        <a className="m-book" href="#contact" aria-label="Book a call" onClick={closeMenu}>
           Book a call
         </a>
 

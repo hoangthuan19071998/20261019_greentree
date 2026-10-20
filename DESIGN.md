@@ -235,9 +235,9 @@ A single-page vertical narrative with one horizontal chapter. Content sits in a 
 
 Section rhythm is generous: 120–160px vertical padding on major sections (`section` spacing token, 140px), 48–64px between a section's header and its content, 16–32px inside groups. The hero is at least 820px tall, on a 1.4fr / 1fr two-column grid aligned to the bottom.
 
-Above 760px, the "Who we are + Services" chapter is pinned (`position: sticky; top: 80px`) and scrolls horizontally: a full-width About panel, a 520px intro panel, then five 760px service cards, with a 56px Heartwood progress bar underneath. At 760px and below, and whenever reduced motion is enabled, the same content becomes a natural vertical sequence with full-width panels and no pinned overflow.
+At viewport widths of at least 1101px and heights of at least 800px, the "Who we are + Services" chapter is pinned (`position: sticky; top: 80px`) and scrolls horizontally: a full-width About panel, a 520px intro panel, then five 760px service cards, with a 56px Heartwood progress bar underneath. Smaller or shorter viewports, and reduced motion, use a natural vertical sequence with full-width panels. Pinned About content uses tighter spacing and a smaller headline at viewport heights up to 900px.
 
-Process uses a five-column grid with 16px gaps (two columns at 761–1100px, one column below). Selected Work is a 3/2/1-up carousel (≥1120 / ≥640 / <640px) with 24/20/16px gaps.
+Process uses a five-column grid with 16px gaps (two columns at 761–1100px, one column below). Selected Work is a 3/2/1-up carousel (≥1120 / ≥640 / <640px) with 24/20/16px gaps. Each card stacks its channel and website, then presents two metrics above a full-width Moss growth outcome so labels remain readable at every card width.
 
 Breakpoints in use: 640px, 760px, 1100px, 1120px.
 
@@ -293,7 +293,7 @@ The site has no live form. When one is added, it should sit on the main palette,
 ### Navigation
 - **Style:** Sticky 80px Heartwood bar, max-width 1440px, logo lockup (36px Lichen disc + 26px "Green Tree" serif + 11px "AGENCY" label at 0.22em in Lichen).
 - **Links:** 14px Manrope at 0.04em in Linen, 36px apart. On hover the text turns Lichen and a 1px Lichen underline grows from the centre over 0.5s.
-- **Responsive navigation:** At 1100px and below, the desktop links and full button are replaced by a 44px menu control and a compact "Book a call" pill. The high-contrast Lichen menu includes the Company Profile PDF. Below 360px the wordmark is hidden so the logo, menu, and CTA retain safe spacing.
+- **Responsive navigation:** At 1100px and below, the desktop links and full button are replaced by a 44px menu control and a compact "Book a call" pill. The high-contrast Lichen menu includes the Company Profile PDF and scrolls within the available viewport height. At 480px and below the Agency label is hidden and the wordmark uses 22px; below 360px the wordmark is hidden so the logo, menu, and CTA retain safe spacing.
 
 ### Growth-Ring Cursor (signature)
 On fine pointers the native cursor is replaced by a 46px ring plus a 6px dot, both Linen with `mix-blend-mode: difference`, so they invert on every ground. The ring spins slowly (14s) and scales ×1.9 on interactive targets. On touch devices a 96px Lichen ring ripples out from each tap instead.

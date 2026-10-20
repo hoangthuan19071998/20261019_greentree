@@ -11,7 +11,7 @@ import { QuoteSection } from './components/QuoteSection'
 import { ContactSection } from './components/ContactSection'
 
 const REDUCE_QUERY = '(prefers-reduced-motion: reduce)'
-const DESKTOP_QUERY = '(min-width: 761px)'
+const DESKTOP_QUERY = '(min-width: 1101px) and (min-height: 800px)'
 
 const supportsHorizontalJourney = () => {
   if (typeof window === 'undefined' || !window.matchMedia) return false
@@ -22,8 +22,8 @@ const supportsHorizontalJourney = () => {
 }
 
 export function App() {
-  // The pinned horizontal journey is a desktop enhancement. Phones use the
-  // same content in a natural vertical flow so nothing is clipped by the pin.
+  // Pin only when the viewport has enough room for every panel. Tablets and
+  // shorter windows use the same content in a natural vertical flow.
   const [hz, setHz] = useState(supportsHorizontalJourney)
   const rootRef = useRef<HTMLDivElement>(null)
   const progRef = useRef<HTMLDivElement>(null)

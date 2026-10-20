@@ -329,7 +329,7 @@ export const SelectedWorkSection: FC = () => {
                       </span>
 
                       {/* External Link Hover Pill */}
-                      <span className="absolute top-3 right-3 z-10 text-xs sm:text-[13px] font-medium px-2.5 py-1 rounded-full bg-[#14261E] text-[#F2F1EA] flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-sm">
+                      <span className="absolute bottom-3 right-3 z-10 text-xs sm:text-[13px] font-medium px-2.5 py-1 rounded-full bg-[#14261E] text-[#F2F1EA] flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-sm">
                         <span>Visit</span>
                         <ExternalLink className="w-3 h-3" />
                       </span>
@@ -344,11 +344,11 @@ export const SelectedWorkSection: FC = () => {
                     </div>
 
                     {/* Channel & Live Link row */}
-                    <div className="flex items-center justify-between text-xs mb-2.5 gap-2">
-                      <span className="font-semibold tracking-[0.06em] uppercase text-[#3E6B52] text-xs sm:text-[13px] shrink-0">
+                    <div className="flex flex-col items-start text-xs mb-2.5 gap-1">
+                      <span className="font-semibold tracking-[0.06em] uppercase text-[#3E6B52] text-xs sm:text-[13px]">
                         {project.channel}
                       </span>
-                      <span className="text-[#5B635D] text-xs sm:text-[13px] truncate max-w-[170px] flex items-center gap-1 group-hover:text-[#14261E] transition-colors">
+                      <span className="text-[#5B635D] text-xs sm:text-[13px] max-w-full flex items-center gap-1 group-hover:text-[#14261E] transition-colors">
                         <span className="truncate">{project.displayUrl}</span>
                         <ExternalLink className="w-2.5 h-2.5 shrink-0 opacity-70" />
                       </span>
@@ -369,7 +369,7 @@ export const SelectedWorkSection: FC = () => {
 
                   {/* Bottom Metrics Bar */}
                   <div className="pt-4 border-t border-[#DFE3D9] mt-auto">
-                    <div className="work-metrics flex items-center justify-between gap-2 sm:gap-3">
+                    <div className="work-metrics">
                       <div>
                         <span className="block text-base sm:text-lg lg:text-xl font-semibold text-[#14261E]">
                           {project.stat1.value}
