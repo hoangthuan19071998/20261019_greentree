@@ -51,6 +51,14 @@
   letter-spacing: .04em;
   padding: 12px 4px;
 }
+.navlinks {
+  display: none;
+}
+@media (min-width: 1101px) {
+  .navlinks {
+    display: flex;
+  }
+}
 .navlink::after {
   content: "";
   position: absolute;
@@ -290,7 +298,7 @@
   outline-offset: 3px;
 }
 
-/* Mobile section menu (phones only, see mobile block) */
+/* Compact section menu for phones and narrower tablets. */
 .m-menu-btn {
   display: none;
   align-items: center;
@@ -311,9 +319,15 @@
   background: #C9D8B0;
   color: #14261E;
 }
-/* Covers the 761–767px gap before the desktop nav appears at 768px */
-@media (max-width: 767px) {
-  .m-menu-btn { display: inline-flex; }
+@media (max-width: 1100px) {
+  .navlinks,
+  .hdr-btn {
+    display: none !important;
+  }
+  .m-menu-btn,
+  .m-book {
+    display: inline-flex;
+  }
 }
 .m-menu-btn:focus-visible {
   outline: 2px solid #C9D8B0;

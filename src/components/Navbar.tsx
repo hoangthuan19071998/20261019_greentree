@@ -14,7 +14,7 @@ export const Navbar: FC<NavbarProps> = ({ progressRef }) => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') setMenuOpen(false)
     }
-    const mq = window.matchMedia('(min-width: 761px)')
+    const mq = window.matchMedia('(min-width: 1101px)')
     const onMq = () => {
       if (mq.matches) setMenuOpen(false)
     }
@@ -60,7 +60,7 @@ export const Navbar: FC<NavbarProps> = ({ progressRef }) => {
 
         {/* Navigation links */}
         <nav
-          className="navlinks hidden md:flex items-center"
+          className="navlinks items-center"
           aria-label="Main"
           style={{ gap: '36px' }}
         >
@@ -75,6 +75,15 @@ export const Navbar: FC<NavbarProps> = ({ progressRef }) => {
           </a>
           <a className="navlink" href="#work">
             Work
+          </a>
+          <a
+            className="navlink"
+            href="/greentree-company-profile.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Open the Green Tree Agency company profile PDF in a new tab"
+          >
+            Company Profile
           </a>
         </nav>
 
@@ -102,7 +111,7 @@ export const Navbar: FC<NavbarProps> = ({ progressRef }) => {
         </a>
 
         {/* CTA Button */}
-        <a className="btn btn-light hdr-btn hidden sm:inline-flex" href="#contact">
+        <a className="btn btn-light hdr-btn" href="#contact">
           <span className="btn-fill" />
           <span>Book a call</span>
           <span className="btn-ring">
@@ -127,6 +136,15 @@ export const Navbar: FC<NavbarProps> = ({ progressRef }) => {
           <a href="#services" onClick={closeMenu}>Services</a>
           <a href="#process" onClick={closeMenu}>Process</a>
           <a href="#work" onClick={closeMenu}>Work</a>
+          <a
+            href="/greentree-company-profile.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Open the Green Tree Agency company profile PDF in a new tab"
+            onClick={closeMenu}
+          >
+            Company Profile
+          </a>
         </nav>
       )}
 

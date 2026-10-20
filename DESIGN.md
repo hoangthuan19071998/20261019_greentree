@@ -293,7 +293,7 @@ The site has no live form. When one is added, it should sit on the main palette,
 ### Navigation
 - **Style:** Sticky 80px Heartwood bar, max-width 1440px, logo lockup (36px Lichen disc + 26px "Green Tree" serif + 11px "AGENCY" label at 0.22em in Lichen).
 - **Links:** 14px Manrope at 0.04em in Linen, 36px apart. On hover the text turns Lichen and a 1px Lichen underline grows from the centre over 0.5s.
-- **Mobile:** Below 760px the desktop links and full button are replaced by a 44px menu control and a compact "Book a call" pill. The menu opens as a high-contrast Lichen panel. Below 360px the wordmark is hidden so the logo, menu, and CTA retain safe spacing.
+- **Responsive navigation:** At 1100px and below, the desktop links and full button are replaced by a 44px menu control and a compact "Book a call" pill. The high-contrast Lichen menu includes the Company Profile PDF. Below 360px the wordmark is hidden so the logo, menu, and CTA retain safe spacing.
 
 ### Growth-Ring Cursor (signature)
 On fine pointers the native cursor is replaced by a 46px ring plus a 6px dot, both Linen with `mix-blend-mode: difference`, so they invert on every ground. The ring spins slowly (14s) and scales ×1.9 on interactive targets. On touch devices a 96px Lichen ring ripples out from each tap instead.
