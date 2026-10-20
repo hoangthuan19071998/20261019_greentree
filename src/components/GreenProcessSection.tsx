@@ -13,7 +13,7 @@ export const GreenProcessSection: FC = () => {
       letter: 'R',
       stepNum: '02',
       title: 'Root',
-      desc: 'Strategy, audience and measurable goals â€” agreed before a single Ä‘á»“ng is spent.',
+      desc: 'Strategy, audience and measurable goals — agreed before any budget is spent.',
     },
     {
       letter: 'E',
@@ -25,7 +25,7 @@ export const GreenProcessSection: FC = () => {
       letter: 'E',
       stepNum: '04',
       title: 'Elevate',
-      desc: 'Test, learn and scale what works. Cut what doesnâ€™t. Weekly.',
+      desc: 'Test, learn and scale what works. Cut what doesn’t. Weekly.',
     },
     {
       letter: 'N',
@@ -43,7 +43,7 @@ export const GreenProcessSection: FC = () => {
       {/* Header */}
       <div className="mb-8">
         <span className="text-xs tracking-[0.25em] font-sans font-semibold text-[#8FA98F] uppercase block mb-3">
-          03 â€” HOW WE WORK
+          03 — HOW WE WORK
         </span>
         <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl text-[#F5F4EE] font-normal">
           The <span className="italic text-[#A7C7AC]">G.R.E.E.N.</span> process

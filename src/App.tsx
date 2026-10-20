@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { TreeRingSymbol } from './components/TreeRingSymbol'
 import { CustomCursor } from './components/CustomCursor'
 import { TapRipple } from './components/TapRipple'
@@ -10,7 +10,21 @@ import { SelectedWorkSection } from './components/SelectedWorkSection'
 import { QuoteSection } from './components/QuoteSection'
 import { ContactSection } from './components/ContactSection'
 
+const REDUCE_QUERY = '(prefers-reduced-motion: reduce)'
+const DESKTOP_QUERY = '(min-width: 761px)'
+
+const supportsHorizontalJourney = () => {
+  if (typeof window === 'undefined' || !window.matchMedia) return false
+  return (
+    !window.matchMedia(REDUCE_QUERY).matches &&
+    window.matchMedia(DESKTOP_QUERY).matches
+  )
+}
+
 export function App() {
+  // The pinned horizontal journey is a desktop enhancement. Phones use the
+  // same content in a natural vertical flow so nothing is clipped by the pin.
+  const [hz, setHz] = useState(supportsHorizontalJourney)
   const rootRef = useRef<HTMLDivElement>(null)
   const progRef = useRef<HTMLDivElement>(null)
   const ringRef = useRef<SVGSVGElement>(null)
@@ -20,12 +34,23 @@ export function App() {
   const hzProgRef = useRef<HTMLSpanElement>(null)
 
   useEffect(() => {
+    if (!window.matchMedia) return
+    const reduceMq = window.matchMedia(REDUCE_QUERY)
+    const desktopMq = window.matchMedia(DESKTOP_QUERY)
+    const onChange = () => setHz(!reduceMq.matches && desktopMq.matches)
+    reduceMq.addEventListener('change', onChange)
+    desktopMq.addEventListener('change', onChange)
+    return () => {
+      reduceMq.removeEventListener('change', onChange)
+      desktopMq.removeEventListener('change', onChange)
+    }
+  }, [])
+
+  useEffect(() => {
     const rootEl = rootRef.current
     if (!rootEl) return
 
-    const reduce =
-      window.matchMedia &&
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const reduce = !hz
 
     // IntersectionObserver for reveal animation (.rv -> .rv.in)
     let io: IntersectionObserver | null = null
@@ -64,8 +89,62 @@ export function App() {
       hzRef.current.style.height = `${pinRef.current.offsetHeight + dist}px`
     }
 
+    // Scroll the window so a track panel sits at the left edge of the pin.
+    const scrollToPanel = (panel: HTMLElement, behavior: ScrollBehavior) => {
+      const hzEl = hzRef.current
+      const trackEl = trackRef.current
+      if (reduce || !hzEl || !trackEl) return
+      if (!dist) layout()
+      if (!dist) return
+      const pinTop = pinRef.current
+        ? parseFloat(getComputedStyle(pinRef.current).top) || 80
+        : 80
+      const hzTop = hzEl.getBoundingClientRect().top + window.scrollY - pinTop
+      const left =
+        panel.getBoundingClientRect().left - trackEl.getBoundingClientRect().left
+      const offset = Math.max(0, Math.min(dist, left))
+      window.scrollTo({ top: hzTop + offset, behavior })
+    }
+
+    const onClick = (e: MouseEvent) => {
+      if (reduce || e.defaultPrevented || e.button !== 0) return
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return
+      const link = (e.target as Element | null)?.closest<HTMLAnchorElement>(
+        'a[href^="#"]'
+      )
+      if (!link) return
+      const id = link.getAttribute('href')?.slice(1)
+      if (!id) return
+      const target = document.getElementById(id)
+      if (!target || !trackRef.current?.contains(target)) return
+      const panel = target.closest<HTMLElement>('.hz-panel') || target
+      e.preventDefault()
+      scrollToPanel(panel, 'smooth')
+    }
+
+    const onFocusIn = (e: FocusEvent) => {
+      if (reduce || !trackRef.current || !pinRef.current) return
+      const el = e.target as HTMLElement | null
+      if (!el || !trackRef.current.contains(el)) return
+      const panel = el.closest<HTMLElement>('.hz-panel')
+      if (!panel) return
+      // The browser starts its own (smooth) scroll to the focused element right
+      // after focusin, aiming at the element's untransformed position. Wait a
+      // frame, then replace it with an instant scroll to the panel's mapped
+      // position ('instant' cancels the smooth scroll and ignores the html
+      // smooth-scroll rule), so the track and the focused element line up.
+      requestAnimationFrame(() => {
+        if (document.activeElement !== el) return
+        scrollToPanel(panel, 'instant')
+        update()
+      })
+    }
+
     const update = () => {
       ticking = false
+      if (pinRef.current && pinRef.current.scrollLeft !== 0) {
+        pinRef.current.scrollLeft = 0
+      }
       const vh = window.innerHeight || 800
       if (rootRef.current) {
         const r = rootRef.current.getBoundingClientRect()
@@ -122,6 +201,8 @@ export function App() {
 
     document.addEventListener('scroll', onScroll, { capture: true, passive: true })
     window.addEventListener('resize', onResize, { passive: true })
+    rootEl.addEventListener('click', onClick)
+    rootEl.addEventListener('focusin', onFocusIn)
 
     const t1 = setTimeout(onResize, 80)
     const t2 = setTimeout(onResize, 600)
@@ -132,15 +213,21 @@ export function App() {
     return () => {
       document.removeEventListener('scroll', onScroll, { capture: true })
       window.removeEventListener('resize', onResize)
+      rootEl.removeEventListener('click', onClick)
+      rootEl.removeEventListener('focusin', onFocusIn)
+      // Drop any inline layout the horizontal driver applied.
+      if (hzRef.current) hzRef.current.style.height = ''
+      if (trackRef.current) trackRef.current.style.transform = ''
+      if (pars) pars.forEach((el) => (el.style.transform = ''))
       clearTimeout(t1)
       clearTimeout(t2)
       if (io) io.disconnect()
     }
-  }, [])
+  }, [hz])
 
   return (
     <div
-      className="gt js js-hz"
+      className={hz ? 'gt js js-hz' : 'gt js'}
       ref={rootRef}
       style={{
         width: '100%',

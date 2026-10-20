@@ -31,12 +31,12 @@ const workProjects: WorkProject[] = [
     stat2: { value: '−42%', label: 'CPA' },
     highlight: '+65% Direct Bookings',
     description:
-      'Chiến lược quảng cáo đa kênh định vị thương hiệu khách sạn 5 sao biển Đà Nẵng, thúc đẩy mạnh mẽ lượt đặt phòng trực tiếp quốc tế và nội địa.',
+      'A multi-channel advertising strategy positioned this five-star beachfront hotel in Da Nang and drove direct bookings from domestic and international guests.',
   },
   {
     id: 'adidas-danang',
-    client: 'Adidas Đà Nẵng',
-    subtitle: 'Hệ thống phân phối chính hãng',
+    client: 'Adidas Da Nang',
+    subtitle: 'Official Retail Network',
     category: 'Sportswear & Retail',
     channel: 'TikTok & Meta Ads',
     url: 'https://www.facebook.com/adidasdanang',
@@ -46,12 +46,12 @@ const workProjects: WorkProject[] = [
     stat2: { value: '−38%', label: 'CPA' },
     highlight: '+125% Store Footfall',
     description:
-      'Tối ưu hóa các chiến dịch Short-form Video sáng tạo trên TikTok kết hợp quảng cáo vị trí địa phương, bứt phá doanh số cho chuỗi cửa hàng.',
+      'Creative short-form TikTok campaigns paired with local advertising increased sales across the retail network.',
   },
   {
     id: 'thaco-auto',
-    client: 'THACO AUTO Đà Nẵng',
-    subtitle: 'Showroom & Đại lý ủy quyền',
+    client: 'THACO AUTO Da Nang',
+    subtitle: 'Authorized Showroom & Dealership',
     category: 'Automotive & Mobility',
     channel: 'Performance Lead Gen',
     url: 'https://thacoautodanang.vn',
@@ -61,7 +61,7 @@ const workProjects: WorkProject[] = [
     stat2: { value: '−32%', label: 'CPL' },
     highlight: '4.9x Pipeline Value',
     description:
-      'Xây dựng hệ thống phễu thu thập khách hàng đăng ký lái thử xe thông minh, tối ưu chi phí trên mỗi khách hàng tiềm năng chất lượng cao.',
+      'A streamlined test-drive lead funnel reduced acquisition costs while increasing the volume of qualified prospects.',
   },
   {
     id: 'ayi-bistro',
@@ -76,12 +76,12 @@ const workProjects: WorkProject[] = [
     stat2: { value: '−28%', label: 'CPA' },
     highlight: '+180% Reservations',
     description:
-      'Kể câu chuyện văn hóa ẩm thực đặc sắc qua hình ảnh và video nghệ thuật, thu hút lượng thực khách trải nghiệm và đặt bàn tăng đột phá.',
+      'Distinctive food storytelling through photography and film attracted new diners and produced a sharp increase in reservations.',
   },
   {
     id: 'enet-education',
     client: 'Enet Education',
-    subtitle: 'Viện Đào tạo Quốc tế Enet',
+    subtitle: 'Enet International Training Institute',
     category: 'EdTech & Education',
     channel: 'Google Search & Meta Ads',
     url: 'https://enet.edu.vn',
@@ -91,7 +91,7 @@ const workProjects: WorkProject[] = [
     stat2: { value: '−35%', label: 'CPA' },
     highlight: '+210% Enrolled Students',
     description:
-      'Chiến lược phễu tuyển sinh số đa kênh kết hợp SEO từ khóa chuyên sâu và quảng cáo tìm kiếm, thúc đẩy tỷ lệ chuyển đổi học viên đăng ký mới.',
+      'A multi-channel enrollment funnel combined focused SEO with search advertising to increase conversions from prospective students.',
   },
 ]
 
@@ -172,6 +172,7 @@ export const SelectedWorkSection: FC = () => {
   // Autoplay (paused on hover)
   useEffect(() => {
     if (isHovered || maxIndex <= 0) return
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
     const timer = setInterval(() => {
       handleNext()
     }, 6000)
@@ -243,16 +244,16 @@ export const SelectedWorkSection: FC = () => {
             Selected <em style={{ color: '#3E6B52' }}>work</em>
           </h2>
           <p
-            className="rv text-sm md:text-base text-[#4E5650] font-light mt-3"
+            className="rv text-sm md:text-base text-[#3E4740] font-light mt-3"
             style={{ maxWidth: '580px', lineHeight: 1.6 }}
           >
-            Dự án thực tế đồng hành cùng các thương hiệu hàng đầu tại Đà Nẵng và toàn quốc {'\u2014'} đo lường bằng hiệu quả và tăng trưởng bền vững.
+            Real partnerships with leading brands in Da Nang and across Vietnam {'\u2014'} measured through performance and sustainable growth.
           </p>
         </div>
 
         {/* Carousel Controls in Header */}
         <div className="flex items-center gap-5 shrink-0">
-          <div className="text-xs font-mono text-[#5B635D] tracking-widest hidden sm:block">
+          <div className="text-[13px] tabular-nums text-[#5B635D] tracking-[0.06em] hidden sm:block">
             <span className="text-[#14261E] font-semibold">
               0{activeIndex + 1}
             </span>{' '}
@@ -283,6 +284,10 @@ export const SelectedWorkSection: FC = () => {
         className="relative"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
+        onFocus={() => setIsHovered(true)}
+        onBlur={(e) => {
+          if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setIsHovered(false)
+        }}
         onTouchStart={onTouchStart}
         onTouchMove={onTouchMove}
         onTouchEnd={onTouchEnd}
@@ -319,12 +324,12 @@ export const SelectedWorkSection: FC = () => {
                   <div>
                     <div className="relative aspect-[16/9] w-full rounded-xl bg-white border border-[#E9ECE4] flex items-center justify-center p-4 sm:p-5 overflow-hidden mb-5 shadow-xs group-hover:shadow-md transition-shadow duration-300">
                       {/* Category Tag Badge */}
-                      <span className="absolute top-3 left-3 z-10 text-[10px] sm:text-[11px] font-medium tracking-wider uppercase px-2.5 py-1 rounded-full bg-[#F2F1EA] text-[#24543B] border border-[#D5DCD2]">
+                      <span className="absolute top-3 left-3 z-10 text-xs sm:text-[13px] font-medium tracking-[0.06em] uppercase px-2.5 py-1 rounded-full bg-[#F2F1EA] text-[#1F3A2E] border border-[#D5DCD2]">
                         {project.category}
                       </span>
 
                       {/* External Link Hover Pill */}
-                      <span className="absolute top-3 right-3 z-10 text-[11px] font-medium px-2.5 py-1 rounded-full bg-[#14261E] text-[#F2F1EA] flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-sm">
+                      <span className="absolute top-3 right-3 z-10 text-xs sm:text-[13px] font-medium px-2.5 py-1 rounded-full bg-[#14261E] text-[#F2F1EA] flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-sm">
                         <span>Visit</span>
                         <ExternalLink className="w-3 h-3" />
                       </span>
@@ -340,10 +345,10 @@ export const SelectedWorkSection: FC = () => {
 
                     {/* Channel & Live Link row */}
                     <div className="flex items-center justify-between text-xs mb-2.5 gap-2">
-                      <span className="font-semibold tracking-wider uppercase text-[#3E6B52] text-[10px] sm:text-[11px] shrink-0">
+                      <span className="font-semibold tracking-[0.06em] uppercase text-[#3E6B52] text-xs sm:text-[13px] shrink-0">
                         {project.channel}
                       </span>
-                      <span className="text-[#69726A] font-mono text-[10px] sm:text-[11px] truncate max-w-[170px] flex items-center gap-1 group-hover:text-[#14261E] transition-colors">
+                      <span className="text-[#5B635D] text-xs sm:text-[13px] truncate max-w-[170px] flex items-center gap-1 group-hover:text-[#14261E] transition-colors">
                         <span className="truncate">{project.displayUrl}</span>
                         <ExternalLink className="w-2.5 h-2.5 shrink-0 opacity-70" />
                       </span>
@@ -351,7 +356,7 @@ export const SelectedWorkSection: FC = () => {
 
                     {/* Client Name - Prominent and impactful */}
                     <h3
-                      className="serif text-[25px] sm:text-[28px] lg:text-[30px] font-bold text-[#0D2118] group-hover:text-[#2A6546] transition-colors leading-tight mb-2.5 tracking-[-0.015em]"
+                      className="serif text-[25px] sm:text-[28px] lg:text-[30px] font-normal text-[#14261E] group-hover:text-[#3E6B52] transition-colors leading-tight mb-2.5 tracking-[-0.015em]"
                     >
                       {project.client}
                     </h3>
@@ -364,12 +369,12 @@ export const SelectedWorkSection: FC = () => {
 
                   {/* Bottom Metrics Bar */}
                   <div className="pt-4 border-t border-[#DFE3D9] mt-auto">
-                    <div className="flex items-center justify-between gap-2 sm:gap-3">
+                    <div className="work-metrics flex items-center justify-between gap-2 sm:gap-3">
                       <div>
                         <span className="block text-base sm:text-lg lg:text-xl font-semibold text-[#14261E]">
                           {project.stat1.value}
                         </span>
-                        <span className="text-[10px] sm:text-[11px] uppercase tracking-wider text-[#69726A] whitespace-nowrap">
+                        <span className="text-xs sm:text-[13px] uppercase tracking-[0.06em] text-[#5B635D] whitespace-nowrap">
                           {project.stat1.label}
                         </span>
                       </div>
@@ -378,14 +383,14 @@ export const SelectedWorkSection: FC = () => {
                         <span className="block text-base sm:text-lg lg:text-xl font-semibold text-[#14261E]">
                           {project.stat2.value}
                         </span>
-                        <span className="text-[10px] sm:text-[11px] uppercase tracking-wider text-[#69726A] whitespace-nowrap">
+                        <span className="text-xs sm:text-[13px] uppercase tracking-[0.06em] text-[#5B635D] whitespace-nowrap">
                           {project.stat2.label}
                         </span>
                       </div>
 
-                      <div className="text-right">
-                        <span className="inline-flex items-center gap-1 text-[10px] sm:text-[11px] font-semibold bg-[#E8EFEA] text-[#1E4D36] px-2 sm:px-2.5 py-1 rounded-md whitespace-nowrap">
-                          <TrendingUp className="w-3 h-3 text-[#3E6B52] shrink-0" />
+                      <div className="work-highlight text-right">
+                        <span className="work-growth">
+                          <TrendingUp className="work-growth-icon" aria-hidden="true" />
                           <span>{project.highlight}</span>
                         </span>
                       </div>
@@ -401,10 +406,10 @@ export const SelectedWorkSection: FC = () => {
         <button
           onClick={handlePrev}
           aria-label="Previous slide"
-          className="hidden lg:flex absolute -left-5 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/95 backdrop-blur-md border border-[#14261E]/15 text-[#14261E] items-center justify-center shadow-lg hover:bg-[#14261E] hover:text-white transition-all duration-300 opacity-0 group-hover:opacity-100 hover:scale-110 cursor-pointer z-10"
+          className="hidden lg:flex absolute -left-5 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/95 backdrop-blur-md border border-[#14261E]/15 text-[#14261E] items-center justify-center shadow-lg hover:bg-[#14261E] hover:text-white transition-all duration-300 opacity-0 focus-visible:opacity-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#3E6B52] hover:scale-110 cursor-pointer z-10"
           style={{
-            opacity: isHovered ? 1 : 0,
-            pointerEvents: isHovered ? 'auto' : 'none',
+            opacity: isHovered ? 1 : undefined,
+            pointerEvents: isHovered ? 'auto' : undefined,
           }}
         >
           <ChevronLeft className="w-5 h-5" />
@@ -413,10 +418,10 @@ export const SelectedWorkSection: FC = () => {
         <button
           onClick={handleNext}
           aria-label="Next slide"
-          className="hidden lg:flex absolute -right-5 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/95 backdrop-blur-md border border-[#14261E]/15 text-[#14261E] items-center justify-center shadow-lg hover:bg-[#14261E] hover:text-white transition-all duration-300 opacity-0 group-hover:opacity-100 hover:scale-110 cursor-pointer z-10"
+          className="hidden lg:flex absolute -right-5 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/95 backdrop-blur-md border border-[#14261E]/15 text-[#14261E] items-center justify-center shadow-lg hover:bg-[#14261E] hover:text-white transition-all duration-300 opacity-0 focus-visible:opacity-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#3E6B52] hover:scale-110 cursor-pointer z-10"
           style={{
-            opacity: isHovered ? 1 : 0,
-            pointerEvents: isHovered ? 'auto' : 'none',
+            opacity: isHovered ? 1 : undefined,
+            pointerEvents: isHovered ? 'auto' : undefined,
           }}
         >
           <ChevronRight className="w-5 h-5" />
@@ -424,18 +429,22 @@ export const SelectedWorkSection: FC = () => {
       </div>
 
       {/* Pagination Dots */}
-      <div className="flex justify-center items-center gap-2 mt-10">
+      <div className="flex justify-center items-center mt-6">
         {Array.from({ length: maxIndex + 1 }).map((_, idx) => (
           <button
             key={idx}
             onClick={() => setCurrentIndex(idx)}
-            aria-label={`Chuyển đến trang ${idx + 1}`}
-            className="h-2 rounded-full transition-all duration-400 cursor-pointer"
-            style={{
-              width: activeIndex === idx ? '32px' : '8px',
-              backgroundColor: activeIndex === idx ? '#14261E' : '#C9CBBE',
-            }}
-          />
+            aria-label={`Go to page ${idx + 1}`}
+            className="w-11 h-11 flex items-center justify-center cursor-pointer rounded-full focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[#3E6B52]"
+          >
+            <span
+              className="block h-2 rounded-full transition-all duration-400"
+              style={{
+                width: activeIndex === idx ? '32px' : '8px',
+                backgroundColor: activeIndex === idx ? '#14261E' : '#C9CBBE',
+              }}
+            />
+          </button>
         ))}
       </div>
     </section>

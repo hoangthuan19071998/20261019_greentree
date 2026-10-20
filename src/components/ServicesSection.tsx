@@ -1,67 +1,67 @@
-﻿import type { FC } from 'react'
-import { useState } from 'react'
-import { Sparkles, BarChart3, Globe, Compass, Film } from 'lucide-react'
+﻿import { BarChart3, Compass, Film, Globe, Sparkles } from "lucide-react";
+import type { FC } from "react";
+import { useState } from "react";
 
 export const ServicesSection: FC = () => {
-  const [activeCard, setActiveCard] = useState<number>(0)
+  const [activeCard, setActiveCard] = useState<number>(0);
 
   const services = [
     {
-      num: '01',
-      total: '05',
-      badge: 'CORE',
-      title: 'Performance Ads',
-      desc: 'Meta, Google and TikTok campaigns built around your margins â€” not vanity metrics. Planned, tested and optimised weekly.',
-      tags: ['Meta Ads', 'Google Ads', 'TikTok Ads'],
+      num: "01",
+      total: "05",
+      badge: "CORE",
+      title: "Performance Ads",
+      desc: "Meta, Google and TikTok campaigns built around your margins — not vanity metrics. Planned, tested and optimised weekly.",
+      tags: ["Meta Ads", "Google Ads", "TikTok Ads"],
       icon: BarChart3,
-      accent: 'from-emerald-500/20 to-teal-500/5',
-      metric: 'Average 4.2x ROAS'
+      accent: "from-emerald-500/20 to-teal-500/5",
+      metric: "Average 4.2x ROAS",
     },
     {
-      num: '02',
-      total: '05',
-      badge: 'FOUNDATION',
-      title: 'Brand & Strategy',
-      desc: 'Positioning, audience insight and a clear message â€” the roots every channel grows from.',
-      tags: ['Positioning', 'Audience research', 'Messaging'],
+      num: "02",
+      total: "05",
+      badge: "FOUNDATION",
+      title: "Brand & Strategy",
+      desc: "Positioning, audience insight and a clear message — the roots every channel grows from.",
+      tags: ["Positioning", "Audience research", "Messaging"],
       icon: Compass,
-      accent: 'from-lime-500/20 to-emerald-500/5',
-      metric: 'Deep Market Positioning'
+      accent: "from-lime-500/20 to-emerald-500/5",
+      metric: "Deep Market Positioning",
     },
     {
-      num: '03',
-      total: '05',
-      badge: 'CANOPY',
-      title: 'Content & Social',
-      desc: 'Creative that stops the scroll and stays on brand, from ad creatives to always-on social.',
-      tags: ['Ad creative', 'Short video', 'Social'],
+      num: "03",
+      total: "05",
+      badge: "CANOPY",
+      title: "Content & Social",
+      desc: "Creative that stops the scroll and stays on brand, from ad creatives to always-on social.",
+      tags: ["Ad creative", "Short video", "Social"],
       icon: Film,
-      accent: 'from-teal-500/20 to-green-500/5',
-      metric: 'High CTR Video Creative'
+      accent: "from-teal-500/20 to-green-500/5",
+      metric: "High CTR Video Creative",
     },
     {
-      num: '04',
-      total: '05',
-      badge: 'GROUND',
-      title: 'Web & Landing Pages',
-      desc: 'Fast, considered pages designed to turn paid traffic into customers.',
-      tags: ['Landing pages', 'CRO', 'Tracking'],
+      num: "04",
+      total: "05",
+      badge: "GROUND",
+      title: "Web & Landing Pages",
+      desc: "Fast, considered pages designed to turn paid traffic into customers.",
+      tags: ["Landing pages", "CRO", "Tracking"],
       icon: Globe,
-      accent: 'from-emerald-600/20 to-lime-600/5',
-      metric: 'Sub-second Load Times'
+      accent: "from-emerald-600/20 to-lime-600/5",
+      metric: "Sub-second Load Times",
     },
     {
-      num: '05',
-      total: '05',
-      badge: 'LONG GAME',
-      title: 'SEO & Analytics',
-      desc: 'Organic growth and honest reporting, so every decision is rooted in data.',
-      tags: ['SEO', 'GA4', 'Dashboards'],
+      num: "05",
+      total: "05",
+      badge: "LONG GAME",
+      title: "SEO & Analytics",
+      desc: "Organic growth and honest reporting, so every decision is rooted in data.",
+      tags: ["SEO", "GA4", "Dashboards"],
       icon: Sparkles,
-      accent: 'from-green-500/20 to-emerald-500/5',
-      metric: 'Full Attribution Models'
+      accent: "from-green-500/20 to-emerald-500/5",
+      metric: "Full Attribution Models",
     },
-  ]
+  ];
 
   return (
     <div
@@ -72,7 +72,7 @@ export const ServicesSection: FC = () => {
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
         <div>
           <span className="text-xs tracking-[0.25em] font-sans font-semibold text-[#8FA98F] uppercase block mb-3">
-            02 â€” SERVICES
+            02 — SERVICES
           </span>
           <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl text-[#F5F4EE] font-normal">
             What we <span className="italic text-[#A7C7AC]">grow</span>
@@ -84,15 +84,15 @@ export const ServicesSection: FC = () => {
 
         <div className="hidden sm:flex items-center gap-2 text-xs font-mono text-[#8FA98F]">
           <span>KEEP SCROLLING</span>
-          <span className="text-sm">â†’</span>
+          <span className="text-sm">→</span>
         </div>
       </div>
 
       {/* 5 Service Cards Grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
         {services.map((svc, index) => {
-          const Icon = svc.icon
-          const isSelected = activeCard === index
+          const Icon = svc.icon;
+          const isSelected = activeCard === index;
 
           return (
             <article
@@ -100,8 +100,8 @@ export const ServicesSection: FC = () => {
               onMouseEnter={() => setActiveCard(index)}
               className={`p-6 rounded-2xl border transition-all duration-300 flex flex-col justify-between cursor-pointer relative overflow-hidden group ${
                 isSelected
-                  ? 'bg-[#102C1E] border-[#387352] shadow-xl shadow-black/40 -translate-y-1'
-                  : 'bg-[#0E251A]/60 border-[#1C412C]/60 hover:border-[#2D5E41] hover:bg-[#0E251A]'
+                  ? "bg-[#102C1E] border-[#387352] shadow-xl shadow-black/40 -translate-y-1"
+                  : "bg-[#0E251A]/60 border-[#1C412C]/60 hover:border-[#2D5E41] hover:bg-[#0E251A]"
               }`}
             >
               {/* Subtle top gradient glow */}
@@ -122,7 +122,8 @@ export const ServicesSection: FC = () => {
                 {/* Number & Badge */}
                 <div className="flex items-center justify-between mb-3 text-xs font-mono">
                   <span className="text-[#8FA98F]">
-                    <strong className="text-[#F5F4EE]">{svc.num}</strong> / {svc.total}
+                    <strong className="text-[#F5F4EE]">{svc.num}</strong> /{" "}
+                    {svc.total}
                   </span>
                   <span className="px-2 py-0.5 rounded text-[10px] font-sans font-semibold bg-[#163B28] text-[#A7C7AC] border border-[#245238]">
                     {svc.badge}
@@ -152,7 +153,7 @@ export const ServicesSection: FC = () => {
                 ))}
               </div>
             </article>
-          )
+          );
         })}
       </div>
 
@@ -163,6 +164,5 @@ export const ServicesSection: FC = () => {
         <span>03 PROCESS</span>
       </div>
     </div>
-  )
-}
-
+  );
+};

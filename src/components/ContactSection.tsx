@@ -24,7 +24,7 @@ export const ContactSection: FC = () => {
             color: "#C9D8B0",
           }}
         >
-          04 {"\u2014"} Let's talk
+          04 {"\u2014"} Get in touch
         </p>
 
         <h2
@@ -38,7 +38,7 @@ export const ContactSection: FC = () => {
         >
           Let's plant
           <br />
-          <em style={{ color: "#C9D8B0" }}>something.</em>
+          <em style={{ color: "#C9D8B0" }}>the seed together.</em>
         </h2>
 
         <div
@@ -53,65 +53,52 @@ export const ContactSection: FC = () => {
             flexWrap: "wrap",
           }}
         >
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "36px",
-              flexWrap: "wrap",
-            }}
-          >
-            <a
-              href="mailto:connect@greentreeadv.com"
-              className="serif contact-link contact-email"
-              style={{
-                fontSize: "36px",
-                textDecoration: "none",
-              }}
-            >
-              [connect@greentreeadv.com]
-            </a>
-
-            <a
-              href="tel:0939535958"
-              className="serif contact-link contact-phone"
-              style={{
-                fontSize: "36px",
-                textDecoration: "none",
-              }}
-            >
-              [0939 535 958]
-            </a>
-          </div>
-
           <div className="contact-cta-wrap">
             <a
-              className="ring-cta"
+              className="btn btn-light"
               href="https://zalo.me/2351093501254748295"
               target="_blank"
               rel="noopener noreferrer"
+              aria-label=""
             >
-              <span
-                className="ring-big"
-                style={{ display: "block", color: "#C9D8B0" }}
-              >
+              <span className="btn-fill" />
+              <span>Book a call</span>
+              <span className="btn-ring">
                 <svg
                   className="ring-ico"
                   viewBox="0 0 100 100"
-                  width="132"
-                  height="132"
+                  width="26"
+                  height="26"
                   aria-hidden="true"
-                  style={{ strokeWidth: 2 }}
+                  style={{ strokeWidth: 4.5 }}
                 >
                   <use href="#gt-ring" />
                 </svg>
               </span>
-              <span
-                className="serif"
-                style={{ fontSize: "32px", fontStyle: "italic" }}
-              >
-                Book a discovery call
-              </span>
+            </a>
+            <span
+              style={{
+                fontSize: "13px",
+                lineHeight: 1.4,
+                color: "#A9BBA6",
+                fontFamily: "'Manrope', system-ui, sans-serif",
+              }}
+            ></span>
+          </div>
+
+          <div className="contact-links">
+            <a
+              href="mailto:technical@greentreeadv.com"
+              className="serif contact-link contact-email"
+            >
+              technical@greentreeadv.com
+            </a>
+
+            <a
+              href="tel:+84939535958"
+              className="serif contact-link contact-phone"
+            >
+              [0939 535 958]
             </a>
           </div>
         </div>
@@ -155,11 +142,15 @@ export const ContactSection: FC = () => {
               style={{ width: "100%", height: "100%", objectFit: "contain" }}
             />
           </span>
-          <span>{"\u00A9"} 2026 Green Tree Agency. Hotline: 0939 535 958</span>
+          <span>
+            {"\u00A9"} 2026 Green Tree Agency. Hotline:{" "}
+            <a className="footer-link" href="tel:+84939535958">
+              0939 535 958
+            </a>
+          </span>
         </div>
-        <nav aria-label="Social" style={{ display: "flex", gap: "28px" }}></nav>
         <a
-          className="ring-link"
+          className="ring-link back-top"
           href="#top"
           style={{ color: "#CDD3CB", textDecoration: "none" }}
         >

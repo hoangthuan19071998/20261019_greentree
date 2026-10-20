@@ -12,7 +12,7 @@ const steps = [
     letter: 'R',
     num: '02',
     name: 'Root',
-    desc: 'Strategy, audience and measurable goals \u2014 agreed before a single \u0111\u1ED3ng is spent.',
+    desc: 'Strategy, audience and measurable goals \u2014 agreed before any budget is spent.',
     delay: 'rv-d1',
   },
   {
@@ -61,7 +61,7 @@ export const ProcessSection: FC = () => {
           }}
         >
           <h2
-            className="serif rv"
+            className="serif rv process-title"
             style={{
               margin: 0,
               fontSize: '72px',
@@ -97,7 +97,7 @@ export const ProcessSection: FC = () => {
           {steps.map((p) => (
             <div
               key={p.num}
-              className={`rv ${p.delay}`}
+              className={`rv process-card ${p.delay}`}
               style={{
                 minHeight: '440px',
                 border: '1px solid #3B5E4C',
@@ -109,6 +109,7 @@ export const ProcessSection: FC = () => {
               }}
             >
               <div
+                className="process-letter"
                 style={{
                   height: '140px',
                   display: 'flex',
@@ -116,7 +117,7 @@ export const ProcessSection: FC = () => {
                 }}
               >
                 <span
-                  className="serif"
+                  className="serif process-glyph"
                   style={{
                     fontSize: '140px',
                     lineHeight: 0.8,
@@ -128,6 +129,7 @@ export const ProcessSection: FC = () => {
                 </span>
               </div>
               <div
+                className="process-body"
                 style={{
                   display: 'flex',
                   flexDirection: 'column',

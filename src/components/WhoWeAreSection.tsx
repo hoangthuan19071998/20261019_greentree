@@ -1,12 +1,14 @@
-import type { FC } from 'react'
+import type { FC } from "react";
 // import React
-import { ArrowUpRight } from 'lucide-react'
+import { ArrowUpRight } from "lucide-react";
 
 interface WhoWeAreSectionProps {
-  onOpenContact: () => void
+  onOpenContact: () => void;
 }
 
-export const WhoWeAreSection: FC<WhoWeAreSectionProps> = ({ onOpenContact }) => {
+export const WhoWeAreSection: FC<WhoWeAreSectionProps> = ({
+  onOpenContact,
+}) => {
   return (
     <div
       id="about"
@@ -17,14 +19,25 @@ export const WhoWeAreSection: FC<WhoWeAreSectionProps> = ({ onOpenContact }) => 
 
       {/* Top Tag */}
       <div>
-        <div className="flex items-center gap-2.5 mb-6"><span className="w-6 h-6 rounded-full bg-[#C9D8B0] p-0.5 inline-flex items-center justify-center shrink-0"><img src="/logo_image/gta-symbol-xanh-64.png" alt="GTA" width={16} height={16} className="w-full h-full object-contain" /></span><span className="text-xs tracking-[0.25em] font-sans font-semibold text-[#8FA98F] uppercase block">
-          01 â€” WHO WE ARE
-        </span>
+        <div className="flex items-center gap-2.5 mb-6">
+          <span className="w-6 h-6 rounded-full bg-[#C9D8B0] p-0.5 inline-flex items-center justify-center shrink-0">
+            <img
+              src="/logo_image/gta-symbol-xanh-64.png"
+              alt="GTA"
+              width={16}
+              height={16}
+              className="w-full h-full object-contain"
+            />
+          </span>
+          <span className="text-xs tracking-[0.25em] font-sans font-semibold text-[#8FA98F] uppercase block">
+            01 — WHO WE ARE
+          </span>
         </div>
 
         {/* Lead Quote */}
         <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl text-[#F5F4EE] font-normal leading-[1.25] mb-6">
-          We're a performance-led digital agency in Da Nang that grows brands the way trees grow â€”{' '}
+          We're a performance-led digital agency in Da Nang that grows brands
+          the way trees grow —{" "}
           <span className="italic text-[#A7C7AC] font-light">
             patiently, from the roots up.
           </span>
@@ -33,7 +46,9 @@ export const WhoWeAreSection: FC<WhoWeAreSectionProps> = ({ onOpenContact }) => 
         {/* Body Paragraphs */}
         <div className="space-y-4 text-sm sm:text-base text-[#CCDACC] leading-relaxed font-sans font-light">
           <p>
-            Every campaign starts below the surface: understanding your audience, your market and what growth actually means for your business. Then we plant the right channels and tend them until they bear fruit.
+            Every campaign starts below the surface: understanding your
+            audience, your market and what growth actually means for your
+            business.
           </p>
           <p className="text-[#8FA98F] font-medium pt-2">
             Clear process. Measurable results. Honest reporting. Always curious.
@@ -53,11 +68,8 @@ export const WhoWeAreSection: FC<WhoWeAreSectionProps> = ({ onOpenContact }) => 
           </div>
         </button>
 
-        <span className="text-xs font-mono text-[#5C7D64]">
-          EST. 2026
-        </span>
+        <span className="text-xs font-mono text-[#5C7D64]">EST. 2026</span>
       </div>
     </div>
-  )
-}
-
+  );
+};

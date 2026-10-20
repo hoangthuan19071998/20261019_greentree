@@ -1,4 +1,5 @@
 import type { FC } from 'react'
+import { useEffect, useState } from 'react'
 // import React
 
 interface NavbarProps {
@@ -6,6 +7,27 @@ interface NavbarProps {
 }
 
 export const Navbar: FC<NavbarProps> = ({ progressRef }) => {
+  const [menuOpen, setMenuOpen] = useState(false)
+
+  useEffect(() => {
+    if (!menuOpen) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setMenuOpen(false)
+    }
+    const mq = window.matchMedia('(min-width: 761px)')
+    const onMq = () => {
+      if (mq.matches) setMenuOpen(false)
+    }
+    window.addEventListener('keydown', onKey)
+    mq.addEventListener('change', onMq)
+    return () => {
+      window.removeEventListener('keydown', onKey)
+      mq.removeEventListener('change', onMq)
+    }
+  }, [menuOpen])
+
+  const closeMenu = () => setMenuOpen(false)
+
   return (
     <header className="sticky top-0 z-20 bg-[#14261E]">
       <div
@@ -31,7 +53,7 @@ export const Navbar: FC<NavbarProps> = ({ progressRef }) => {
             />
           </span>
           <span className="serif text-[26px] tracking-[0.01em]">Green Tree</span>
-          <span className="text-[11px] tracking-[0.22em] uppercase text-[#C9D8B0] mt-1">
+          <span className="brand-tag text-[11px] tracking-[0.22em] uppercase text-[#C9D8B0] mt-1">
             Agency
           </span>
         </a>
@@ -42,6 +64,9 @@ export const Navbar: FC<NavbarProps> = ({ progressRef }) => {
           aria-label="Main"
           style={{ gap: '36px' }}
         >
+          <a className="navlink" href="#about">
+            About
+          </a>
           <a className="navlink" href="#services">
             Services
           </a>
@@ -51,15 +76,35 @@ export const Navbar: FC<NavbarProps> = ({ progressRef }) => {
           <a className="navlink" href="#work">
             Work
           </a>
-          <a className="navlink" href="#about">
-            About
-          </a>
         </nav>
+
+        {/* Section menu toggle (phones only) */}
+        <button
+          type="button"
+          className="m-menu-btn"
+          aria-label="Menu"
+          aria-expanded={menuOpen}
+          aria-controls="mobile-menu"
+          onClick={() => setMenuOpen((o) => !o)}
+        >
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" aria-hidden="true">
+            {menuOpen ? (
+              <path d="M6 6l12 12M18 6L6 18" />
+            ) : (
+              <path d="M4 7h16M4 12h16M4 17h16" />
+            )}
+          </svg>
+        </button>
+
+        {/* Compact booking link (phones only) */}
+        <a className="m-book" href="#contact" aria-label="Book a call">
+          Book a call
+        </a>
 
         {/* CTA Button */}
         <a className="btn btn-light hdr-btn hidden sm:inline-flex" href="#contact">
           <span className="btn-fill" />
-          <span>Start a project</span>
+          <span>Book a call</span>
           <span className="btn-ring">
             <svg
               className="ring-ico"
@@ -74,6 +119,16 @@ export const Navbar: FC<NavbarProps> = ({ progressRef }) => {
           </span>
         </a>
       </div>
+
+      {/* Mobile section menu */}
+      {menuOpen && (
+        <nav id="mobile-menu" className="m-menu" aria-label="Sections">
+          <a href="#about" onClick={closeMenu}>About</a>
+          <a href="#services" onClick={closeMenu}>Services</a>
+          <a href="#process" onClick={closeMenu}>Process</a>
+          <a href="#work" onClick={closeMenu}>Work</a>
+        </nav>
+      )}
 
       {/* Reading Progress Line */}
       <div
